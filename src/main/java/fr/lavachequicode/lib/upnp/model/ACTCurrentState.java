@@ -6,7 +6,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
@@ -39,11 +38,14 @@ public class ACTCurrentState {
     void unpackAudioConfig(Map<String, String> data) throws JsonProcessingException {
         audioConfig = readNested(data.get("val"), AudioConfig.class);
     }
+
     AudioConfig audioConfig;
+
     @JsonProperty("BTConfig")
     void unpackBtConfig(Map<String, String> data) throws JsonProcessingException {
         btConfig = readNested(data.get("val"), BluetoothStatus.class);
     }
+
     BluetoothStatus btConfig;
     @JsonProperty("ConfigurationStatus")
     Content configurationStatus;
@@ -103,7 +105,7 @@ public class ACTCurrentState {
 
     @JsonProperty("SurroundSpeakerConfig")
     void unpackSurroundSpeakerConfig(Map<String, String> data) throws JsonProcessingException {
-        surroundSpeakerConfig =  readNested(data.get("val"), SurroundSpeakerConfig.class);
+        surroundSpeakerConfig = readNested(data.get("val"), SurroundSpeakerConfig.class);
     }
 
     SurroundSpeakerConfig surroundSpeakerConfig;
@@ -143,7 +145,7 @@ public class ACTCurrentState {
 
     static <T> T readNested(String value, Class<T> tClass) throws JsonProcessingException {
 
-        if( value == null || value.length() == 0 ){
+        if (value == null || value.length() == 0) {
             return null;
         }
         return (T) xmlMapper.readValue(value, tClass);

@@ -10,7 +10,7 @@ import org.fourthline.cling.model.types.UnsignedIntegerFourBytes;
         serviceId = @UpnpServiceId("AVTransport"),
         serviceType = @UpnpServiceType(value = "AVTransport", version = 1)
 )
-public interface AVTTransport {
+public interface AVTransport {
 
     ServiceId serviceId = new UDAServiceId("AVTransport");
 
