@@ -1,5 +1,6 @@
 package fr.lavachequicode.lib.upnp.services;
 
+import fr.lavachequicode.lib.upnp.model.ZoneCurrentState;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
 import org.fourthline.cling.model.types.UDAServiceId;
@@ -41,7 +42,7 @@ public interface ZoneControl {
 
     @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
-    String getCurrentState();
+    ZoneCurrentState getCurrentState();
 
     @UpnpAction(name = "GetMemberStatus", out = @UpnpOutputArgument(name = "ZoneMemberStatusList"))
     String GetMemberStatus(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);

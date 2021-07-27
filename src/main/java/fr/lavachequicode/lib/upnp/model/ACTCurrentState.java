@@ -14,7 +14,6 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 
 @Data
 @JacksonXmlRootElement(namespace = "urn:schemas-upnp-org:metadata-1-0/ACT/", localName = "Event")
-@Slf4j
 public class ACTCurrentState {
 
     static XmlMapper xmlMapper = new XmlMapper();

@@ -1,13 +1,7 @@
 package fr.lavachequicode.web.resources;
 
-import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
-import fr.lavachequicode.lib.upnp.model.AVTCurrentState;
-import fr.lavachequicode.lib.upnp.model.ConnectionCurrentState;
-import fr.lavachequicode.lib.upnp.model.GroupCurrentState;
-import fr.lavachequicode.lib.upnp.services.ACT;
-import fr.lavachequicode.lib.upnp.services.AVTTransport;
-import fr.lavachequicode.lib.upnp.services.ConnectionManager;
-import fr.lavachequicode.lib.upnp.services.GroupControl;
+import fr.lavachequicode.lib.upnp.model.*;
+import fr.lavachequicode.lib.upnp.services.*;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
@@ -83,6 +77,18 @@ public class ActionsResource {
             throw new NotFoundException();
         }
         ConnectionManager connectionManager = heosUpnpFactoy.createProxy(device.findService(ConnectionManager.serviceId), ConnectionManager.class);
+        return connectionManager.getCurrentState();
+    }
+
+    @GET()
+    @Path("/zone/getCurrentState/{udn}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public ZoneCurrentState getZoneCurrentState(@PathParam("udn") UDN udn) {
+        final Device device = registry.getDevice(udn, false);
+        if (device == null) {
+            throw new NotFoundException();
+        }
+        ZoneControl connectionManager = heosUpnpFactoy.createProxy(device.findService(ZoneControl.serviceId), ZoneControl.class);
         return connectionManager.getCurrentState();
     }
 }
