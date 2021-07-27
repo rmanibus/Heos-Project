@@ -15,7 +15,8 @@ public interface GroupControl {
     void setDeviceFriendlyName(@UpnpInputArgument(name = "DeviceFriendlyName") String deviceFriendlyName);
 
     @UpnpAction(name = "SetGroupFriendlyName")
-    void setGroupFriendlyName(@UpnpInputArgument(name = "GroupFriendlyName") String groupFriendlyName);
+    void setGroupFriendlyName(@UpnpInputArgument(name = "GroupUUID") String groupUUID,
+                              @UpnpInputArgument(name = "GroupFriendlyName") String groupFriendlyName);
 
     @UpnpAction(name = "SetGroupBass")
     void SetGroupBass(@UpnpInputArgument(name = "GroupUUID") String groupUUID,
@@ -32,8 +33,8 @@ public interface GroupControl {
 
     @UpnpAction(name = "SetGroupBalance")
     void setGroupBalance(@UpnpInputArgument(name = "GroupUUID") String groupUUID,
-                        @UpnpInputArgument(name = "GroupBalance") String groupBalance,
-                        @UpnpInputArgument(name = "CommandID") String commandID);
+                         @UpnpInputArgument(name = "GroupBalance") String groupBalance,
+                         @UpnpInputArgument(name = "CommandID") String commandID);
 
     @UpnpAction(name = "DestroyGroup")
     void destroyGroup(@UpnpInputArgument(name = "GroupUUID") String groupUUID,
