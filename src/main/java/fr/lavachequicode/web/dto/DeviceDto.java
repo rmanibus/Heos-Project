@@ -22,7 +22,7 @@ public class DeviceDto {
         this.type = device.getType();
         this.details = device.getDetails();
         this.icons = device.getIcons();
-        this.services = Arrays.stream(device.getServices()).map(ServiceDto::new).toArray(ServiceDto[]::new);
+        this.services = Arrays.stream(device.findServices()).map(ServiceDto::new).toArray(ServiceDto[]::new);
         this.embeddedDevices = Arrays.stream(device.getEmbeddedDevices()).map(DeviceDto::new).toArray(DeviceDto[]::new);
     }
 }

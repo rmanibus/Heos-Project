@@ -6,6 +6,7 @@ import fr.lavachequicode.lib.upnp.services.ConnectionManager;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
+import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.model.types.UDN;
 import org.fourthline.cling.registry.Registry;
 

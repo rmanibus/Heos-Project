@@ -43,11 +43,9 @@ public class ActionInvocationHandler implements InvocationHandler {
         }
         GenericActionCallback callback = new GenericActionCallback(actionInvocation);
         upnpService.getControlPoint().execute(callback).get();
-        if (method.getReturnType().equals(Void.class)) {
+        if (method.getReturnType().equals(Void.class) || upnpActionAnnotation.out().length == 0) {
             return null;
         }
-        //Object o = method.getReturnType().getConstructor().newInstance();
-        //log.info("generated {}", o);
         if (upnpActionAnnotation.out().length == 1) {
 
             String response = callback.getInvocation().getOutputMap().get(upnpActionAnnotation.out()[0].name()).toString();
