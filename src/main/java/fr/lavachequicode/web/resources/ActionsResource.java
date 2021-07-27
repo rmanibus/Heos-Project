@@ -2,9 +2,11 @@ package fr.lavachequicode.web.resources;
 
 import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
 import fr.lavachequicode.lib.upnp.model.AVTCurrentState;
+import fr.lavachequicode.lib.upnp.model.ConnectionCurrentState;
 import fr.lavachequicode.lib.upnp.model.GroupCurrentState;
 import fr.lavachequicode.lib.upnp.services.ACT;
 import fr.lavachequicode.lib.upnp.services.AVTTransport;
+import fr.lavachequicode.lib.upnp.services.ConnectionManager;
 import fr.lavachequicode.lib.upnp.services.GroupControl;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.extern.slf4j.Slf4j;
@@ -70,5 +72,17 @@ public class ActionsResource {
         }
         ACT act = heosUpnpFactoy.createProxy(device.findService(ACT.serviceId), ACT.class);
         return act.getCurrentState();
+    }
+
+    @GET()
+    @Path("/connection/getCurrentState/{udn}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public ConnectionCurrentState getConnectionCurrentState(@PathParam("udn") UDN udn) {
+        final Device device = registry.getDevice(udn, false);
+        if (device == null) {
+            throw new NotFoundException();
+        }
+        ConnectionManager connectionManager = heosUpnpFactoy.createProxy(device.findService(ConnectionManager.serviceId), ConnectionManager.class);
+        return connectionManager.getCurrentState();
     }
 }
