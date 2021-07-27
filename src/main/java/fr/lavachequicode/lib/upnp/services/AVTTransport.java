@@ -1,5 +1,6 @@
 package fr.lavachequicode.lib.upnp.services;
 
+import fr.lavachequicode.lib.upnp.model.AVTCurrentState;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
 import org.fourthline.cling.model.types.UDAServiceId;
@@ -44,7 +45,7 @@ public interface AVTTransport {
 
     @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
-    String getCurrentState();
+    AVTCurrentState getCurrentState();
 
     @UpnpAction(name = "GetCurrentTransportActions", out = @UpnpOutputArgument(name = "Actions", stateVariable = "CurrentTransportActions"))
     String getCurrentTransportActions(@UpnpInputArgument(name = "InstanceID") String instanceId);

@@ -1,6 +1,7 @@
 package fr.lavachequicode.web.resources;
 
 import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
+import fr.lavachequicode.lib.upnp.model.AVTCurrentState;
 import fr.lavachequicode.lib.upnp.model.GroupCurrentState;
 import fr.lavachequicode.lib.upnp.services.ACT;
 import fr.lavachequicode.lib.upnp.services.AVTTransport;
@@ -27,7 +28,7 @@ public class ActionsResource {
     @GET()
     @Path("/avt/getCurrentState/{udn}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getAvtCurrentState(@PathParam("udn") UDN udn) {
+    public AVTCurrentState getAvtCurrentState(@PathParam("udn") UDN udn) {
         final Device device = registry.getDevice(udn, false);
         if (device == null) {
             throw new NotFoundException();
