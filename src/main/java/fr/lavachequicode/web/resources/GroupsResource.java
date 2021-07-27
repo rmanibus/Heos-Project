@@ -15,8 +15,11 @@ import org.fourthline.cling.registry.Registry;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Path("/groups")
 @Slf4j
@@ -40,8 +43,8 @@ public class GroupsResource {
     @GET()
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<UUID, Group> list() {
-        return heosGroupService.getGroups();
+    public Collection<Group> list() {
+        return heosGroupService.getGroups().values();
     }
 
     @Data

@@ -15,6 +15,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class HeosGroupService {
     HeosUpnpFactoy heosUpnpFactory;
 
     @Getter
-    Map<String, Group> groups;
+    Map<String, Group> groups = new HashMap<>();
 
     protected GroupControl getGroupControl(UDN udn) {
         final Device device = registry.getDevice(udn, false);
