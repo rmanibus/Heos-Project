@@ -1,5 +1,6 @@
 package fr.lavachequicode.lib.upnp.services;
 
+import fr.lavachequicode.lib.upnp.model.GroupCurrentState;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
 
@@ -67,7 +68,7 @@ public interface GroupControl {
 
     @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
-    String getCurrentState();
+    GroupCurrentState getCurrentState();
 
     @UpnpAction(name = "GetGroupMemberChannel", out = @UpnpOutputArgument(name = "AudioChannel"))
     String getGroupMemberChannel(@UpnpInputArgument(name = "GroupUUID") String groupUUID);

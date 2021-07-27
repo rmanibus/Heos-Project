@@ -1,6 +1,7 @@
 package fr.lavachequicode.web.resources;
 
 import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
+import fr.lavachequicode.lib.upnp.model.GroupCurrentState;
 import fr.lavachequicode.lib.upnp.services.ACT;
 import fr.lavachequicode.lib.upnp.services.AVTTransport;
 import fr.lavachequicode.lib.upnp.services.GroupControl;
@@ -49,7 +50,7 @@ public class ActionsResource {
     @GET()
     @Path("/group/getCurrentState/{udn}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getGroupCurrentState(@PathParam("udn") UDN udn) {
+    public GroupCurrentState getGroupCurrentState(@PathParam("udn") UDN udn) {
         final Device device = registry.getDevice(udn, false);
         if (device == null) {
             throw new NotFoundException();
