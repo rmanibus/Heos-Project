@@ -74,7 +74,7 @@ public interface GroupControl {
     String getGroupMemberChannel(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetGroupBalance", out = @UpnpOutputArgument(name = "GroupBalance"))
-    String GetGroupBalance(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
+    String getGroupBalance(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetConfigDeviceUUID", out = @UpnpOutputArgument(name = "ConfigDeviceUUID"))
     String getConfigDeviceUUID(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
@@ -93,7 +93,7 @@ public interface GroupControl {
     String getDeviceFriendlyName();
 
     @UpnpAction(name = "GetGroupBass", out = @UpnpOutputArgument(name = "GroupBass"))
-    String GetGroupBass(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
+    String getGroupBass(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetGroupStatus", out = @UpnpOutputArgument(name = "GroupStatus"))
     String getGroupStatus(@UpnpInputArgument(name = "GroupUUID") String groupUUID);

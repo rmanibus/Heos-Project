@@ -24,14 +24,14 @@ public class GenericActionCallback extends ActionCallback {
     public void success(ActionInvocation invocation) {
         this.invocation = invocation;
         this.status = Status.SUCCESS;
-        log.info("success: {}", invocation.getAction().getName());
+        log.debug("success: {}", invocation.getAction().getName());
     }
 
     @Override
     public void failure(ActionInvocation invocation, UpnpResponse operation, String defaultMsg) {
         this.invocation = invocation;
         this.status = Status.FAILURE;
-        log.error("error: {} {}", invocation.getAction().getName(), defaultMsg);
+        log.debug("error: {} {}", invocation.getAction().getName(), defaultMsg);
     }
 
     public enum Status {
