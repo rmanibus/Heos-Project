@@ -38,17 +38,13 @@ public class ACTCurrentState {
 
     @JsonProperty("AudioConfig")
     void unpackAudioConfig(Map<String, String> data) throws JsonProcessingException {
-        audioConfig = xmlMapper.readValue(data.get("val"), AudioConfig.class);
+        audioConfig = readNested(data.get("val"), AudioConfig.class);
     }
-
     AudioConfig audioConfig;
-
-
     @JsonProperty("BTConfig")
     void unpackBtConfig(Map<String, String> data) throws JsonProcessingException {
-        btConfig = xmlMapper.readValue(data.get("val"), BluetoothStatus.class);
+        btConfig = readNested(data.get("val"), BluetoothStatus.class);
     }
-
     BluetoothStatus btConfig;
     @JsonProperty("ConfigurationStatus")
     Content configurationStatus;
@@ -59,7 +55,7 @@ public class ACTCurrentState {
 
     @JsonProperty("CurrentWirelessProfile")
     void unpackWirelessState(Map<String, String> data) throws JsonProcessingException {
-        currentWirelessProfile = xmlMapper.readValue(data.get("val"), WirelessProfile.class);
+        currentWirelessProfile = readNested(data.get("val"), WirelessProfile.class);
     }
 
     WirelessProfile currentWirelessProfile;
@@ -71,7 +67,7 @@ public class ACTCurrentState {
 
     @JsonProperty("LEDConfig")
     void unpackLedConfig(Map<String, String> data) throws JsonProcessingException {
-        ledConfig = xmlMapper.readValue(data.get("val"), LEDConfig.class);
+        ledConfig = readNested(data.get("val"), LEDConfig.class);
     }
 
     LEDConfig ledConfig;
@@ -81,7 +77,7 @@ public class ACTCurrentState {
 
     @JsonProperty("NetworkConfigurationList")
     void unpackNetworkConfigurationList(Map<String, String> data) throws JsonProcessingException {
-        networkConfigurationList = xmlMapper.readValue(data.get("val"), ListNetworkConfigurations.class);
+        networkConfigurationList = readNested(data.get("val"), ListNetworkConfigurations.class);
     }
 
     ListNetworkConfigurations networkConfigurationList;
@@ -91,14 +87,15 @@ public class ACTCurrentState {
 
     @JsonProperty("QuickSelectActive")
     void unpackQuickSelectActive(Map<String, String> data) throws JsonProcessingException {
-        quickSelectActive = xmlMapper.readValue(data.get("val"), QuickSelectActive.class);
+        quickSelectActive = readNested(data.get("val"), QuickSelectActive.class);
+
     }
 
     QuickSelectActive quickSelectActive;
 
     @JsonProperty("QuickSelectNames")
     void unpackQuickSelectNames(Map<String, String> data) throws JsonProcessingException {
-        quickSelectNames = xmlMapper.readValue(data.get("val"), QuickSelectNames.class);
+        quickSelectNames = readNested(data.get("val"), QuickSelectNames.class);
     }
 
     QuickSelectNames quickSelectNames;
@@ -107,7 +104,7 @@ public class ACTCurrentState {
 
     @JsonProperty("SurroundSpeakerConfig")
     void unpackSurroundSpeakerConfig(Map<String, String> data) throws JsonProcessingException {
-        surroundSpeakerConfig = xmlMapper.readValue(data.get("val"), SurroundSpeakerConfig.class);
+        surroundSpeakerConfig =  readNested(data.get("val"), SurroundSpeakerConfig.class);
     }
 
     SurroundSpeakerConfig surroundSpeakerConfig;
@@ -116,7 +113,7 @@ public class ACTCurrentState {
 
     @JsonProperty("TvConfig")
     void unpackTvConfig(Map<String, String> data) throws JsonProcessingException {
-        tvConfig = xmlMapper.readValue(data.get("val"), TvConfig.class);
+        tvConfig = readNested(data.get("val"), TvConfig.class);
     }
 
     TvConfig tvConfig;
@@ -141,8 +138,15 @@ public class ACTCurrentState {
 
     @Data
     public static class Content {
-        @JacksonXmlProperty(
-                isAttribute = true, localName = "val")
+        @JacksonXmlProperty(isAttribute = true, localName = "val")
         String value;
+    }
+
+    static <T> T readNested(String value, Class<T> tClass) throws JsonProcessingException {
+
+        if( value == null || value.length() == 0 ){
+            return null;
+        }
+        return (T) xmlMapper.readValue(value, tClass);
     }
 }
