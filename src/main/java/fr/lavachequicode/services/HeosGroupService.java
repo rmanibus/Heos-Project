@@ -77,7 +77,7 @@ public class HeosGroupService {
                                 group.setFriendlyName(getGroupControl(UDN.valueOf(group.getLeader().getUdn())).getGroupFriendlyName(entry.getKey()));
                             }
                         }
-                ).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+                ).collect(Collectors.toUnmodifiableMap(Entry::getKey, Entry::getValue));
 
         groups.forEach((id, group) -> {
 
