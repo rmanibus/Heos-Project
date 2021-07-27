@@ -2,31 +2,32 @@ package fr.lavachequicode.web.resources;
 
 import fr.lavachequicode.lib.upnp.model.GroupCurrentState;
 import fr.lavachequicode.lib.upnp.services.GroupControl;
+import fr.lavachequicode.model.Group;
+import fr.lavachequicode.services.HeosGroupService;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.DeviceIdentity;
 import org.fourthline.cling.model.types.UDN;
 import org.fourthline.cling.registry.Registry;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Path("/groups")
 @Slf4j
-public class GroupResource {
+public class GroupsResource {
 
     @Inject
     Registry registry;
     @Inject
     HeosUpnpFactoy heosUpnpFactoy;
+    @Inject
+    HeosGroupService heosGroupService;
 
     protected GroupControl getGroupControl(UDN udn) {
         final Device device = registry.getDevice(udn, false);
@@ -39,19 +40,15 @@ public class GroupResource {
     @GET()
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, List<GroupDto>> list() {
-        return registry.getDevices().stream()
-                .map(Device::getIdentity)
-                .map(DeviceIdentity::getUdn)
-                .map(udn -> new SimpleEntry<>(getGroupControl(udn).getGroupUUID(), udn))
-                .map(entry -> new SimpleEntry<>(entry.getKey(), new GroupDto(entry.getValue().getIdentifierString(), getGroupControl(entry.getValue()).getGroupStatus(entry.getKey()))))
-                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
+    public Map<UUID, Group> list() {
+        return heosGroupService.getGroups();
     }
 
     @Data
     @AllArgsConstructor
     public static class GroupDto {
         String udn;
+        String friendlyName;
         String status;
     }
 

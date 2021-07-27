@@ -1,4 +1,4 @@
-package fr.lavachequicode.listener;
+package fr.lavachequicode.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.LocalDevice;

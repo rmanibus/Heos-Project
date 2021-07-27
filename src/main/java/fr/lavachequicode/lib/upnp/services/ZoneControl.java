@@ -45,16 +45,16 @@ public interface ZoneControl {
     ZoneCurrentState getCurrentState();
 
     @UpnpAction(name = "GetMemberStatus", out = @UpnpOutputArgument(name = "ZoneMemberStatusList"))
-    String GetMemberStatus(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);
+    String getMemberStatus(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);
 
     @UpnpAction(name = "GetZoneMute", out = @UpnpOutputArgument(name = "ZoneMute"))
-    String GetZoneMute(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);
+    String getZoneMute(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);
 
     @UpnpAction(name = "GetZoneUUID", out = @UpnpOutputArgument(name = "ZoneUUID"))
-    String GetZoneUUID();
+    String getZoneUUID();
 
     @UpnpAction(name = "GetZoneVolume", out = @UpnpOutputArgument(name = "ZoneVolume"))
-    String GetZoneVolume(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);
+    String getZoneVolume(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID);
 
     @UpnpAction(name = "SetZoneMute")
     void setZoneMute(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID,

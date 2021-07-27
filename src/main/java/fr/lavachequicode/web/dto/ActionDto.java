@@ -14,6 +14,5 @@ public class ActionDto {
         this.name = action.getName();
         this.inputArguments = Arrays.stream(action.getInputArguments()).map(ActionArgumentDto::new).toArray(ActionArgumentDto[]::new);
         this.outputArguments = Arrays.stream(action.getOutputArguments()).map(ActionArgumentDto::new).toArray(ActionArgumentDto[]::new);
-
     }
 }
