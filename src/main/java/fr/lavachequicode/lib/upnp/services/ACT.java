@@ -1,5 +1,6 @@
 package fr.lavachequicode.lib.upnp.services;
 
+import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
 
@@ -22,8 +23,7 @@ public interface ACT {
 
     @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
-    String getCurrentState();
-
+    ACTCurrentState getCurrentState();
     @UpnpAction(name = "AddNetworkShare")
     void addNetworkShare(@UpnpInputArgument(name = "name") String name,
                          @UpnpInputArgument(name = "path") String path,

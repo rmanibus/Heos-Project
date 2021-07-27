@@ -1,5 +1,7 @@
 package fr.lavachequicode.lib.upnp.actions;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import fr.lavachequicode.lib.upnp.services.XML;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.UpnpService;
 import org.fourthline.cling.binding.annotations.UpnpAction;
@@ -47,7 +49,14 @@ public class ActionInvocationHandler implements InvocationHandler {
         //Object o = method.getReturnType().getConstructor().newInstance();
         //log.info("generated {}", o);
         if (upnpActionAnnotation.out().length == 1) {
-            return callback.getInvocation().getOutputMap().get(upnpActionAnnotation.out()[0].name()).toString();
+
+            String response = callback.getInvocation().getOutputMap().get(upnpActionAnnotation.out()[0].name()).toString();
+            XML xml = method.getAnnotation(XML.class);
+            if(xml == null){
+                return response;
+            }
+            XmlMapper xmlMapper = new XmlMapper();
+            return xmlMapper.readValue(response, method.getReturnType());
         }
         return callback.getInvocation().getOutputMap().toString();
     }

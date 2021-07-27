@@ -1,11 +1,10 @@
 package fr.lavachequicode.web.resources;
 
-import fr.lavachequicode.lib.upnp.actions.ActionInvocationHandler;
+import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
 import fr.lavachequicode.lib.upnp.services.ACT;
 import fr.lavachequicode.lib.upnp.services.AVTTransport;
 import fr.lavachequicode.lib.upnp.services.GroupControl;
 import fr.lavachequicode.services.HeosUpnpFactoy;
-import fr.lavachequicode.web.dto.DeviceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
 import org.fourthline.cling.model.types.UDN;
@@ -62,7 +61,7 @@ public class ActionsResource {
     @GET()
     @Path("/act/getCurrentState/{udn}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getActCurrentState(@PathParam("udn") UDN udn) {
+    public ACTCurrentState getActCurrentState(@PathParam("udn") UDN udn) {
         final Device device = registry.getDevice(udn, false);
         if (device == null) {
             throw new NotFoundException();
