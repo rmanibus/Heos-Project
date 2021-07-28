@@ -10,6 +10,6 @@ import java.util.List;
 public class Zone {
     String id;
     String friendlyName;
-    GroupMember leader;
-    List<GroupMember> members;
+    Member leader;
+    List<? extends Member> members;
 }

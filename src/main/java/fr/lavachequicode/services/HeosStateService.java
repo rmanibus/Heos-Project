@@ -7,7 +7,6 @@ import fr.lavachequicode.lib.upnp.model.ZoneCurrentState;
 import fr.lavachequicode.lib.upnp.services.ACT;
 import fr.lavachequicode.lib.upnp.services.GroupControl;
 import fr.lavachequicode.lib.upnp.services.ZoneControl;
-import fr.lavachequicode.model.Zone;
 import io.quarkus.runtime.ShutdownEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
@@ -20,7 +19,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,8 +31,15 @@ public class HeosStateService {
     @Inject
     HeosUpnpFactoy heosUpnpFactory;
     @Inject
+    HeosSubscriptionService heosSubscriptionService;
+
+    @Inject
     Event<StateUpdated> dataUpdatedEvent;
 
+
+    public static class DeviceCurrentState {
+
+    }
 
     final Map<String, GroupCurrentState> devicesGroupState = new ConcurrentHashMap<>();
     final Map<String, ZoneCurrentState> devicesZoneState = new ConcurrentHashMap<>();
@@ -57,11 +62,11 @@ public class HeosStateService {
     }
 
     protected void remoteDeviceAdded(@Observes @Phase.Alive RemoteDeviceDiscovery event) {
-        updateDevice(event.getDevice());
+        initDevice(event.getDevice());
     }
 
     protected void remoteDeviceUpdated(@Observes @Phase.Updated RemoteDeviceDiscovery event) {
-        updateDevice(event.getDevice());
+        initDevice(event.getDevice());
     }
 
     /*
@@ -71,28 +76,43 @@ public class HeosStateService {
         dataUpdatedEvent.fire(new StateUpdated());
     }
     */
+
     protected void shutdown(@Observes ShutdownEvent e) {
         devicesGroupState.clear();
     }
 
-    protected void updateDevice(Device device) {
+    protected void initDevice(Device device) {
         final AtomicBoolean updated = new AtomicBoolean(false);
 
         if (device.isFullyHydrated()) {
             Optional.ofNullable(device.findService(GroupControl.serviceId)).ifPresent((service) -> {
-                devicesGroupState.put(device.getIdentity().getUdn().getIdentifierString(), getGroupControl(service).getCurrentState());
-                updated.set(true);
+                devicesGroupState.computeIfAbsent(device.getIdentity().getUdn().getIdentifierString(), key -> {
+                    log.info("subscribing {} {} {}", device.getDetails().getFriendlyName(), device.getIdentity().getUdn().getIdentifierString(), service.getServiceType().getType());
+                    GroupCurrentState currentState = getGroupControl(service).getCurrentState();
+                    heosSubscriptionService.subscribe(service, currentState);
+                    updated.set(true);
+                    return currentState;
+                });
             });
             Optional.ofNullable(device.findService(ZoneControl.serviceId)).ifPresent((service) -> {
-                devicesZoneState.put(device.getIdentity().getUdn().getIdentifierString(), getZoneControl(service).getCurrentState());
-                updated.set(true);
+                devicesZoneState.computeIfAbsent(device.getIdentity().getUdn().getIdentifierString(), key -> {
+                    log.info("subscribing {} {} {}", device.getDetails().getFriendlyName(), device.getIdentity().getUdn().getIdentifierString(), service.getServiceType().getType());
+                    ZoneCurrentState currentState = getZoneControl(service).getCurrentState();
+                    heosSubscriptionService.subscribe(service, currentState);
+                    updated.set(true);
+                    return currentState;
+                });
             });
             Optional.ofNullable(device.findService(ACT.serviceId)).ifPresent((service) -> {
-                devicesActState.put(device.getIdentity().getUdn().getIdentifierString(), getAct(service).getCurrentState());
-                updated.set(true);
+                devicesActState.computeIfAbsent(device.getIdentity().getUdn().getIdentifierString(), key -> {
+                    log.info("subscribing {} {} {}", device.getDetails().getFriendlyName(), device.getIdentity().getUdn().getIdentifierString(), service.getServiceType().getType());
+                    ACTCurrentState currentState = getAct(service).getCurrentState();
+                    heosSubscriptionService.subscribe(service, currentState);
+                    updated.set(true);
+                    return currentState;
+                });
             });
         }
-
         if (updated.get()) {
             dataUpdatedEvent.fire(new StateUpdated());
         }
@@ -105,6 +125,7 @@ public class HeosStateService {
     protected ZoneControl getZoneControl(Service service) {
         return heosUpnpFactory.createProxy(service, ZoneControl.class);
     }
+
     protected ACT getAct(Service service) {
         return heosUpnpFactory.createProxy(service, ACT.class);
     }

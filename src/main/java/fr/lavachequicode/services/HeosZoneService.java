@@ -1,8 +1,8 @@
 package fr.lavachequicode.services;
 
 import fr.lavachequicode.lib.upnp.devices.AiosDevice;
-import fr.lavachequicode.model.Group;
-import fr.lavachequicode.model.GroupMember;
+import fr.lavachequicode.model.Device;
+import fr.lavachequicode.model.Member;
 import fr.lavachequicode.model.Zone;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.types.UDN;
@@ -25,11 +25,11 @@ public class HeosZoneService {
     @Inject
     HeosStateService heosStateService;
 
-    public Collection<Zone> getZones(){
+    public Collection<Zone> getZones() {
         return buildZoneMap().values();
     }
 
-    public Zone getGroup(String id){
+    public Zone getGroup(String id) {
         return buildZoneMap().get(id);
     }
 
@@ -41,11 +41,11 @@ public class HeosZoneService {
                 .map(
                         entry -> new SimpleEntry<>(
                                 entry.getKey(),
-                                new GroupMember(
-                                        entry.getValue().getIdentity().getUdn().getIdentifierString(),
-                                        entry.getValue().getDetails().getFriendlyName(),
-                                        heosStateService.getDeviceZoneState(entry.getValue().getIdentity().getUdn()).getZoneStatus().getValue()
-                                )
+                                (Device) Device.builder()
+                                        .id(entry.getValue().getIdentity().getUdn().getIdentifierString())
+                                        .friendlyName(entry.getValue().getDetails().getFriendlyName())
+                                        .zoneStatus(heosStateService.getDeviceZoneState(entry.getValue().getIdentity().getUdn()).getZoneStatus().getValue())
+                                        .build()
                         )
                 )
                 .collect(Collectors.groupingBy(Entry::getKey, Collectors.mapping(Entry::getValue, Collectors.toList())))
@@ -56,7 +56,7 @@ public class HeosZoneService {
                                 new Zone(
                                         entry.getKey(),
                                         "No Zone",
-                                        entry.getValue().stream().filter(member -> "ZONE_LEAD".equals(member.getStatus())).findFirst().orElse(null),
+                                        entry.getValue().stream().filter(member -> "ZONE_LEAD".equals(member.getZoneStatus())).findFirst().orElse(null),
                                         entry.getValue()
                                 )
                         )
@@ -64,7 +64,7 @@ public class HeosZoneService {
                         entry -> {
                             Zone zone = entry.getValue();
                             if (zone.getLeader() != null) {
-                                zone.setFriendlyName(heosStateService.getDeviceZoneState(UDN.valueOf(zone.getLeader().getUdn())).getZoneFriendlyName().getValue());
+                                zone.setFriendlyName(heosStateService.getDeviceZoneState(UDN.valueOf(zone.getLeader().getId())).getZoneFriendlyName().getValue());
                             }
                         }
                 ).collect(Collectors.toUnmodifiableMap(Entry::getKey, Entry::getValue));
