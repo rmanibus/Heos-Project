@@ -8,4 +8,5 @@ import lombok.experimental.SuperBuilder;
 public class Device extends Member {
     String groupStatus;
     String zoneStatus;
+    String audioChannel;
 }

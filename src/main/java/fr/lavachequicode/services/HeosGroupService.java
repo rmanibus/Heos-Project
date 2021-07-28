@@ -74,6 +74,7 @@ public class HeosGroupService {
                         .id(entry.getValue().getIdentity().getUdn().getIdentifierString())
                         .friendlyName(entry.getValue().getDetails().getFriendlyName())
                         .groupStatus(heosStateService.getDeviceGroupState(entry.getValue().getIdentity().getUdn()).getGroupStatus().getValue())
+                        .audioChannel(heosStateService.getDeviceGroupState(entry.getValue().getIdentity().getUdn()).getAudioChannel().getValue())
                         .build()
         );
     }

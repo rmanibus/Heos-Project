@@ -1,0 +1,26 @@
+<mat-toolbar class="mat-elevation-z8"></mat-toolbar>
+<mat-nav-list>
+  <mat-list-item
+    matLine
+    routerLink="zones"
+    routerLinkActive="active"
+  >
+    <mat-icon mat-list-icon>place</mat-icon>
+    Zones
+  </mat-list-item>
+  <mat-list-item matLine routerLink="devices" routerLinkActive="active">
+    <mat-icon mat-list-icon>headphones</mat-icon>
+    Devices
+  </mat-list-item>
+  <mat-list-item matLine routerLink="playback" routerLinkActive="active">
+    <mat-icon mat-list-icon>graphic_eq</mat-icon>
+    Playback
+  </mat-list-item>
+</mat-nav-list>
+<span fxFlex="1 1 auto"></span>
+<mat-nav-list>
+  <mat-list-item matLine routerLink="settings" routerLinkActive="active">
+    <mat-icon mat-list-icon>settings</mat-icon>
+    Settings
+  </mat-list-item>
+</mat-nav-list>

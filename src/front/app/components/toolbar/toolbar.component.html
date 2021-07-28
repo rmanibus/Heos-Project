@@ -1,0 +1,23 @@
+<mat-toolbar
+  class="heos-toolbar mat-elevation-z8"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+>
+  <button mat-icon-button (click)="toggleDrawer()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span fxFlex="1 1 auto"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item
+    routerLink="profile"
+    >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+  </mat-menu>
+</mat-toolbar>
