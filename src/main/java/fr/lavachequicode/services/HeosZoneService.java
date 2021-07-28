@@ -1,27 +1,29 @@
 package fr.lavachequicode.services;
 
-import fr.lavachequicode.lib.upnp.devices.AiosDevice;
 import fr.lavachequicode.model.Device;
-import fr.lavachequicode.model.Member;
+import fr.lavachequicode.model.Group;
 import fr.lavachequicode.model.Zone;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.types.UDN;
-import org.fourthline.cling.registry.Registry;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static fr.lavachequicode.model.Group.NO_GROUP_ID;
 
 @ApplicationScoped
 @Slf4j
 public class HeosZoneService {
 
     @Inject
-    Registry registry;
+    HeosGroupService heosGroupService;
     @Inject
     HeosStateService heosStateService;
 
@@ -29,44 +31,49 @@ public class HeosZoneService {
         return buildZoneMap().values();
     }
 
-    public Zone getGroup(String id) {
-        return buildZoneMap().get(id);
-    }
 
     Map<String, Zone> buildZoneMap() {
 
-        return registry.getDevices(AiosDevice.type).stream()
-                .filter(device -> heosStateService.containsZoneStateForDevice(device.getIdentity().getUdn()))
-                .map(device -> new SimpleEntry<>(heosStateService.getDeviceZoneState(device.getIdentity().getUdn()).getZoneUUID().getValue(), device))
-                .map(
-                        entry -> new SimpleEntry<>(
-                                entry.getKey(),
-                                (Device) Device.builder()
-                                        .id(entry.getValue().getIdentity().getUdn().getIdentifierString())
-                                        .friendlyName(entry.getValue().getDetails().getFriendlyName())
-                                        .zoneStatus(heosStateService.getDeviceZoneState(entry.getValue().getIdentity().getUdn()).getZoneStatus().getValue())
-                                        .build()
-                        )
-                )
-                .collect(Collectors.groupingBy(Entry::getKey, Collectors.mapping(Entry::getValue, Collectors.toList())))
-                .entrySet().stream()
-                .map(
+        final Map<String, Group> groupMap = heosGroupService.buildGroupMap();
+        Group noGroup = groupMap.get(NO_GROUP_ID);
+        return Stream.concat(
+                groupMap.values().stream().filter(group -> !NO_GROUP_ID.equals(group.getId())),
+                Optional.ofNullable(noGroup).map(Group::getMembers).stream().flatMap(Collection::stream)
+        )
+                .filter(Objects::nonNull)
+                .map(member -> {
+                    log.info("member {}", member);
+
+                    if (member instanceof Group) {
+                        ((Group) member).getMembers().forEach(device -> device.setZoneStatus(heosStateService.getDeviceZoneState(UDN.valueOf(device.getId())).getZoneStatus().getValue()));
+                        return new SimpleEntry<>(heosStateService.getDeviceZoneState(UDN.valueOf(((Group) member).getLeader().getId())).getZoneUUID().getValue(), member);
+                    } else if (member instanceof Device) {
+                        ((Device) member).setZoneStatus(heosStateService.getDeviceZoneState(UDN.valueOf(member.getId())).getZoneStatus().getValue());
+                        return new SimpleEntry<>(heosStateService.getDeviceZoneState(UDN.valueOf((member).getId())).getZoneUUID().getValue(), member);
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())))
+                .entrySet().stream().map(
                         entry -> new SimpleEntry<>(
                                 entry.getKey(),
                                 new Zone(
                                         entry.getKey(),
                                         "No Zone",
-                                        entry.getValue().stream().filter(member -> "ZONE_LEAD".equals(member.getZoneStatus())).findFirst().orElse(null),
+                                        null,
                                         entry.getValue()
                                 )
                         )
-                ).peek(
+                )
+                .peek(
                         entry -> {
                             Zone zone = entry.getValue();
                             if (zone.getLeader() != null) {
                                 zone.setFriendlyName(heosStateService.getDeviceZoneState(UDN.valueOf(zone.getLeader().getId())).getZoneFriendlyName().getValue());
                             }
                         }
-                ).collect(Collectors.toUnmodifiableMap(Entry::getKey, Entry::getValue));
+                )
+                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

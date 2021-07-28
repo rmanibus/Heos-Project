@@ -27,7 +27,6 @@ public class ZonesResource {
         return heosZoneService.getZones();
     }
 
-
     @Data
     @AllArgsConstructor
     public static class GroupDto {
