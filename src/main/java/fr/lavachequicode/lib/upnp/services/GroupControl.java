@@ -99,7 +99,7 @@ public interface GroupControl {
     String getGroupStatus(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetGroupTreble", out = @UpnpOutputArgument(name = "GroupTreble"))
-    String GetGroupTreble(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
+    String getGroupTreble(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetMediaServerUUID", out = @UpnpOutputArgument(name = "MediaServerUUID"))
     String getMediaServerUUID(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
@@ -111,9 +111,9 @@ public interface GroupControl {
     String getGroupFriendlyName(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetGroupMute", out = @UpnpOutputArgument(name = "GroupMute"))
-    String GetGroupMute(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
+    String getGroupMute(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
     @UpnpAction(name = "GetGroupMemberList", out = @UpnpOutputArgument(name = "GroupMemberUUIDList"))
-    String GetGroupMemberList(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
+    String getGroupMemberList(@UpnpInputArgument(name = "GroupUUID") String groupUUID);
 
 }

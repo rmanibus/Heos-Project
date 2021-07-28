@@ -1,6 +1,8 @@
 package fr.lavachequicode.services;
 
+import fr.lavachequicode.lib.upnp.devices.AiosDevice;
 import io.quarkus.runtime.StartupEvent;
+import io.quarkus.scheduler.Scheduled;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.UpnpService;
 import org.fourthline.cling.controlpoint.ControlPoint;
@@ -23,12 +25,11 @@ public class HeosUpnpService {
 
     void setup(@Observes StartupEvent e) {
         startEvent.fire(new UpnpService.Start());
-        scan();
     }
 
+    @Scheduled(every="60s")
     public void scan() {
         log.info("searching for devices ...");
-        DeviceType type = new DeviceType("schemas-denon-com", "ACT-Denon");
-        controlPoint.search(new UDADeviceTypeHeader(type));
+        controlPoint.search(new UDADeviceTypeHeader(AiosDevice.type));
     }
 }

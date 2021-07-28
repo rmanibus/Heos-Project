@@ -1,4 +1,4 @@
-package fr.lavachequicode.web.resources;
+package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.web.dto.DeviceDto;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("/devices")
+@Path("/upnp/devices")
 @Slf4j
 public class DevicesResource {
 

@@ -15,7 +15,7 @@ public interface AVTransport {
     ServiceId serviceId = new UDAServiceId("AVTransport");
 
     @UpnpAction(name = "Stop")
-    public abstract void stop(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId);
+    public abstract void stop(@UpnpInputArgument(name = "InstanceID") String instanceId);
 
     @UpnpAction(name = "Play")
     void play(
@@ -26,21 +26,21 @@ public interface AVTransport {
     void pause(@UpnpInputArgument(name = "InstanceID") String instanceId);
 
     @UpnpAction(name = "Record")
-    void record(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId);
+    void record(@UpnpInputArgument(name = "InstanceID") String instanceId);
 
     @UpnpAction(name = "Seek")
-    void seek(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
+    void seek(@UpnpInputArgument(name = "InstanceID") String instanceId,
               @UpnpInputArgument(name = "Unit", stateVariable = "A_ARG_TYPE_SeekMode") String unit,
               @UpnpInputArgument(name = "Target", stateVariable = "A_ARG_TYPE_SeekTarget") String target);
 
     @UpnpAction(name = "Next")
-    void next(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId);
+    void next(@UpnpInputArgument(name = "InstanceID") String instanceId);
 
     @UpnpAction(name = "Previous")
-    void previous(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId);
+    void previous(@UpnpInputArgument(name = "InstanceID") String instanceId);
 
     @UpnpAction(name = "SetPlayMode")
-    void setPlayMode(@UpnpInputArgument(name = "InstanceID") UnsignedIntegerFourBytes instanceId,
+    void setPlayMode(@UpnpInputArgument(name = "InstanceID") String instanceId,
                      @UpnpInputArgument(name = "NewPlayMode", stateVariable = "CurrentPlayMode") String newPlayMode);
 
     @XML

@@ -1,8 +1,7 @@
-package fr.lavachequicode.web.resources;
+package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.lib.upnp.model.ACTCurrentState;
 import fr.lavachequicode.lib.upnp.services.ACT;
-import fr.lavachequicode.lib.upnp.services.AVTransport;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
@@ -13,7 +12,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/act")
+@Path("/upnp/act")
 @Slf4j
 public class ActResource {
 

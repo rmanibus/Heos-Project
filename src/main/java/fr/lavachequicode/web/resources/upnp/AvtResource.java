@@ -1,4 +1,4 @@
-package fr.lavachequicode.web.resources;
+package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.lib.upnp.model.AVTCurrentState;
 import fr.lavachequicode.lib.upnp.services.AVTransport;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/avt")
+@Path("/upnp/avt")
 @Slf4j
 public class AvtResource {
 
@@ -41,5 +41,26 @@ public class AvtResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getAvtCurrentTransportActions(@PathParam("udn") UDN udn) {
         return getAvTransport(udn).getCurrentTransportActions("0");
+    }
+
+    @GET()
+    @Path("/play/{udn}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public void play(@PathParam("udn") UDN udn) {
+         getAvTransport(udn).play("0", "1");
+    }
+
+    @GET()
+    @Path("/pause/{udn}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public void pause(@PathParam("udn") UDN udn) {
+        getAvTransport(udn).pause("0");
+    }
+
+    @GET()
+    @Path("/next/{udn}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public void next(@PathParam("udn") UDN udn) {
+        getAvTransport(udn).next("0");
     }
 }

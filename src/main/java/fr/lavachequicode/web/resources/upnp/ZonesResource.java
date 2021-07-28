@@ -1,7 +1,6 @@
-package fr.lavachequicode.web.resources;
+package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.lib.upnp.model.ZoneCurrentState;
-import fr.lavachequicode.lib.upnp.services.GroupControl;
 import fr.lavachequicode.lib.upnp.services.ZoneControl;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Path("/zones")
+@Path("/upnp/zones")
 @Slf4j
 public class ZonesResource {
 

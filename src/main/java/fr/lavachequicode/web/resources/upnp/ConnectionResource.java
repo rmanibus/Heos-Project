@@ -1,12 +1,10 @@
-package fr.lavachequicode.web.resources;
+package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.lib.upnp.model.ConnectionCurrentState;
-import fr.lavachequicode.lib.upnp.services.AVTransport;
 import fr.lavachequicode.lib.upnp.services.ConnectionManager;
 import fr.lavachequicode.services.HeosUpnpFactoy;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
-import org.fourthline.cling.model.meta.Service;
 import org.fourthline.cling.model.types.UDN;
 import org.fourthline.cling.registry.Registry;
 
@@ -14,7 +12,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/connection")
+@Path("/upnp/connection")
 @Slf4j
 public class ConnectionResource {
 
