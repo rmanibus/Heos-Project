@@ -1,7 +1,7 @@
 package fr.lavachequicode.web.resources;
 
-import fr.lavachequicode.model.Group;
-import fr.lavachequicode.services.HeosGroupService;
+import fr.lavachequicode.model.Zone;
+import fr.lavachequicode.services.HeosZoneService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -13,19 +13,20 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 
-@Path("/groups")
+@Path("/zones")
 @Slf4j
-public class GroupsResource {
+public class ZonesResource {
 
     @Inject
-    HeosGroupService heosGroupService;
+    HeosZoneService heosZoneService;
 
     @GET()
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Group> list() {
-        return heosGroupService.getGroups();
+    public Collection<Zone  > list() {
+        return heosZoneService.getZones();
     }
+
 
     @Data
     @AllArgsConstructor

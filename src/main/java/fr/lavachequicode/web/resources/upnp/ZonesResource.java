@@ -69,4 +69,5 @@ public class ZonesResource {
     public ZoneCurrentState getZoneCurrentState(@PathParam("udn") UDN udn) {
         return getZoneControl(udn).getCurrentState();
     }
+
 }
