@@ -16,6 +16,7 @@ import { Zone } from '../../types/zone.type';
   styleUrls: ['./zones.component.less'],
 })
 export class ZonesComponent implements OnInit {
+  panelOpenState = false;
   zonesSubject = new BehaviorSubject<Zone[]>([]);
   zones$: Observable<Zone[]>;
 
