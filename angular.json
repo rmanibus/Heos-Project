@@ -76,7 +76,8 @@
               "browserTarget": "heos-app:build:production"
             },
             "development": {
-              "browserTarget": "heos-app:build:development"
+              "browserTarget": "heos-app:build:development",
+              "proxyConfig": "src/front/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
