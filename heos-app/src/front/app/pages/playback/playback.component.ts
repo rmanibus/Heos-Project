@@ -30,5 +30,16 @@ export class PlaybackComponent implements OnInit {
       zone && this.http.get('api/playback/pause/' + zone.id).subscribe();
     });
   }
+
+  next() {
+    this.zoneService.selectedZone$.pipe(take(1)).subscribe((zone) => {
+      zone && this.http.get('api/playback/next/' + zone.id).subscribe();
+    });
+  }
+  previous() {
+    this.zoneService.selectedZone$.pipe(take(1)).subscribe((zone) => {
+      zone && this.http.get('api/playback/previous/' + zone.id).subscribe();
+    });
+  }
   ngOnInit(): void {}
 }

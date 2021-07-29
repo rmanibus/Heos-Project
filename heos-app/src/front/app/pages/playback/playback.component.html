@@ -10,7 +10,7 @@
     <mat-card-actions>
         <mat-slider style="width: 100%;" aria-label="unit(s)"></mat-slider>
         <div fxLayout="row" fxLayoutAlign="center center" >
-          <button mat-icon-button>
+          <button mat-icon-button (click)="previous()">
             <mat-icon>skip_previous</mat-icon>
           </button>
           <button mat-icon-button (click)="play()">
@@ -19,7 +19,7 @@
           <button mat-icon-button (click)="pause()">
             <mat-icon>pause_arrow</mat-icon>
           </button>
-          <button mat-icon-button>
+          <button mat-icon-button (click)="next()">
             <mat-icon>skip_next</mat-icon>
           </button>
           <button mat-icon-button [matMenuTriggerFor]="menu">

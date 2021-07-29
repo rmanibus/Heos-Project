@@ -40,6 +40,14 @@ public class HeosPlaybackService {
     getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId))).pause("0");
   }
 
+  public void next(String zoneId) {
+    getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId))).next("0");
+  }
+
+  public void previous(String zoneId) {
+    getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId))).previous("0");
+  }
+
   protected UDN getZoneLeaderUdn(Zone zone){
     return zone.getLeader().getUdn();
   }

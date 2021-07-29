@@ -38,4 +38,19 @@ public class PlaybackResource {
   public void pause(@PathParam("id") String zoneId) {
     heosPlaybackService.pause(zoneId);
   }
+
+  @GET()
+  @Path("/next/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public void next(@PathParam("id") String zoneId) {
+    heosPlaybackService.next(zoneId);
+  }
+
+  @GET()
+  @Path("/previous/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public void previous(@PathParam("id") String zoneId) {
+    heosPlaybackService.next(zoneId);
+  }
+
 }
