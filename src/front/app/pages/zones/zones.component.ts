@@ -5,6 +5,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ZoneService } from '../../services/zone.service';
 import { Device } from '../../types/device.type';
 import { Group } from '../../types/group.type';
 import { Zone } from '../../types/zone.type';
@@ -18,43 +19,13 @@ export class ZonesComponent implements OnInit {
   zonesSubject = new BehaviorSubject<Zone[]>([]);
   zones$: Observable<Zone[]>;
 
-  constructor() {
+  constructor(private zoneService: ZoneService) {
     this.zones$ = this.zonesSubject.asObservable();
+    this.zoneService.zones$.subscribe(next => this.zonesSubject.next(next));
   }
 
   ngOnInit(): void {
-    this.zonesSubject.next([
-      {
-        friendlyName: 'salon',
-        id: '132432',
-        leader: {
-          id: '123532',
-          type: 'device',
-          audioChannel: 'LEFT',
-          friendlyName: 'device1',
-          groupStatus: 'status',
-          zoneStatus: 'status',
-        },
-        members: [
-          {
-            id: '123532',
-            type: 'device',
-            audioChannel: 'LEFT',
-            friendlyName: 'device1',
-            groupStatus: 'status',
-            zoneStatus: 'status',
-          },
-          {
-            id: '123532',
-            type: 'device',
-            audioChannel: 'RIGHT',
-            friendlyName: 'device2',
-            groupStatus: 'status',
-            zoneStatus: 'status',
-          },
-        ],
-      },
-    ]);
+
   }
 
   drop(event: CdkDragDrop<(Device | Group)[]>) {
@@ -63,7 +34,8 @@ export class ZonesComponent implements OnInit {
       event.previousContainer.data.length > 1
     ) {
       const newZone: Zone = {
-        friendlyName: 'new zone',
+        friendlyName:
+          event.previousContainer.data[event.previousIndex].friendlyName,
         id: '',
         leader: null,
         members: [],
@@ -86,9 +58,10 @@ export class ZonesComponent implements OnInit {
       );
     } else {
       if (event.previousContainer.data.length == 1) {
-        console.log('array to remove', event.previousContainer);
         const zones: Zone[] = this.zonesSubject.getValue();
-        this.zonesSubject.next(zones.filter(zone => zone.members !== event.previousContainer.data));
+        this.zonesSubject.next(
+          zones.filter((zone) => zone.members !== event.previousContainer.data)
+        );
       }
       transferArrayItem(
         event.previousContainer.data,

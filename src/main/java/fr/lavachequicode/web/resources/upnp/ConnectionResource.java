@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/upnp/connection")
+@Path("/api/upnp/connection")
 @Slf4j
 public class ConnectionResource {
 

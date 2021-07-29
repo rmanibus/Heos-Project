@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Path("/upnp/zones")
+@Path("/api/upnp/zones")
 @Slf4j
 public class ZonesResource {
 

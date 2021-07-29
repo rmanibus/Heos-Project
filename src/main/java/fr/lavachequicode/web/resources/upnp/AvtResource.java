@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/upnp/avt")
+@Path("/api/upnp/avt")
 @Slf4j
 public class AvtResource {
 

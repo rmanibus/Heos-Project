@@ -17,7 +17,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 
-@Path("/upnp/groups")
+@Path("/api/upnp/groups")
 @Slf4j
 public class GroupsResource {
 

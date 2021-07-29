@@ -20,6 +20,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatListModule} from '@angular/material/list';
 import {DragDropModule} from '@angular/cdk/drag-drop'; 
+import { GroupService } from './services/group.service';
+import { ZoneService } from './services/zone.service';
 
 
 @NgModule({
@@ -46,7 +48,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatListModule,
     DragDropModule,
   ],
-  providers: [],
+  providers: [GroupService, ZoneService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

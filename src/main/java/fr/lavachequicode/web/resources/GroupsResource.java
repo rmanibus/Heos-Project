@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 
-@Path("/groups")
+@Path("/api/groups")
 @Slf4j
 public class GroupsResource {
 

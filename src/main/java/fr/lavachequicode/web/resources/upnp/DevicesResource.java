@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("/upnp/devices")
+@Path("/api/upnp/devices")
 @Slf4j
 public class DevicesResource {
 
