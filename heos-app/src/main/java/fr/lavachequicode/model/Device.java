@@ -2,11 +2,17 @@ package fr.lavachequicode.model;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
+import org.fourthline.cling.model.types.UDN;
 
 @Data
 @SuperBuilder
 public class Device extends Member {
-    String groupStatus;
-    String zoneStatus;
-    String audioChannel;
+
+  public UDN getUdn() {
+    return UDN.valueOf(id);
+  }
+
+  String groupStatus;
+  String zoneStatus;
+  String audioChannel;
 }
