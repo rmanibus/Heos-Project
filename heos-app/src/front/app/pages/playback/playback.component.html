@@ -1,10 +1,10 @@
 <mat-card class="playback-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      <mat-card-title>{{(status$ | async)?.InstanceID.currentTrackMetaData.item.dcTitle}}</mat-card-title>
+      <mat-card-subtitle>{{(status$ | async)?.InstanceID.currentTrackMetaData.item.artist}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image [src]="(status$ | async)?.InstanceID.currentTrackMetaData.item.albumArtURI" alt="AlbumArt">
     <mat-card-content>
     </mat-card-content>
     <mat-card-actions>
@@ -13,8 +13,11 @@
           <button mat-icon-button>
             <mat-icon>skip_previous</mat-icon>
           </button>
-          <button mat-icon-button>
+          <button mat-icon-button (click)="play()">
             <mat-icon>play_arrow</mat-icon>
+          </button>
+          <button mat-icon-button (click)="pause()">
+            <mat-icon>pause_arrow</mat-icon>
           </button>
           <button mat-icon-button>
             <mat-icon>skip_next</mat-icon>

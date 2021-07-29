@@ -107,7 +107,7 @@ public class HeosZoneService {
             if (member instanceof Group) {
               zone.setLeader(((Group) member).getLeader());
             } else {
-              zone.setLeader(member);
+              zone.setLeader((Device) member);
             }
           }
         });

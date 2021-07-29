@@ -1,3 +1,5 @@
-<div class="zone-box" cdkDrag>
-    Drag me around
-</div>
+<mat-list role="list">
+    <mat-list-item *ngFor="let device of (devices$ | async)" role="listitem">{{device.friendlyName}}</mat-list-item>
+
+  </mat-list>
+  

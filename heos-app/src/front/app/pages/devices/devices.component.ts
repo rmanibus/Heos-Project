@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Device } from '../../types/device.type';
 
 @Component({
   selector: 'app-devices',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevicesComponent implements OnInit {
 
-  constructor() { }
+  devices$: Observable<Device[]>;
+
+  constructor(private http: HttpClient) { 
+    this.devices$ = this.http.get<Device[]>('api/devices/');
+  }
 
   ngOnInit(): void {
   }
