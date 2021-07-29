@@ -26,6 +26,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import { GroupService } from './services/group.service';
 import { ZoneService } from './services/zone.service';
+import { PlayerComponent } from './components/player/player.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ZoneService } from './services/zone.service';
     ToolbarComponent,
     ZonesComponent,
     PlaybackComponent,
-    DevicesComponent
+    DevicesComponent,
+    PlayerComponent
   ],
   imports: [
     HttpClientModule,
