@@ -30,7 +30,6 @@ public class HeosZoneService {
     return buildZoneMap().values();
   }
 
-
   Map<String, Zone> buildZoneMap() {
 
     final Map<String, Group> groupMap = heosGroupService.buildGroupMap();
@@ -53,24 +52,32 @@ public class HeosZoneService {
   protected Entry<String, Zone> memberListEntryToZoneEntry(Entry<String, List<Member>> entry) {
     return new SimpleEntry<>(
       entry.getKey(),
-      new Zone(
-        entry.getKey(),
-        "No Zone",
-        entry.getValue().stream()
+      Zone.builder()
+        .id(entry.getKey())
+        .friendlyName("No Zone")
+        .leader(entry.getValue().stream()
           .map(this::extractLeader)
           .map(this::castToDevice)
-          .filter(this::isZoneLeader).findFirst().orElse(null),
-        entry.getValue()
-      )
+          .filter(this::isZoneLeader)
+          .findFirst()
+          .orElse(null))
+        .members(entry.getValue())
+        .build()
     );
   }
 
   protected Entry<String, Member> memberToEntry(Member member) {
     if (member instanceof Group) {
-      return new SimpleEntry<>(heosStateService.getDeviceZoneState(UDN.valueOf(((Group) member).getLeader().getId())).getZoneUUID().getValue(), member);
+      String zoneId = Optional.ofNullable(((Group) member).getLeader())
+        .map(leader -> heosStateService.getDeviceZoneState(UDN.valueOf(leader.getId())).getZoneUUID().getValue())
+        .filter(id -> !"".equals(id))
+        .orElse(member.getId());
+      return new SimpleEntry<>(zoneId, member);
     } else if (member instanceof Device) {
+      String zoneId = Optional.of(heosStateService.getDeviceZoneState(UDN.valueOf((member).getId())).getZoneUUID().getValue())
+        .filter(id -> !"".equals(id)).orElse(member.getId());
       ((Device) member).setZoneStatus(heosStateService.getDeviceZoneState(UDN.valueOf(member.getId())).getZoneStatus().getValue());
-      return new SimpleEntry<>(heosStateService.getDeviceZoneState(UDN.valueOf((member).getId())).getZoneUUID().getValue(), member);
+      return new SimpleEntry<>(zoneId, member);
     }
     return null;
   }
@@ -87,9 +94,20 @@ public class HeosZoneService {
   }
 
   protected void fetchZoneFriendlyName(Zone zone) {
-    if (zone.getLeader() != null) {
-      zone.setFriendlyName(heosStateService.getDeviceZoneState(UDN.valueOf(zone.getLeader().getId())).getZoneFriendlyName().getValue());
-    }
+    Optional.ofNullable(zone.getLeader())
+      .ifPresentOrElse(leader ->
+          zone.setFriendlyName(heosStateService.getDeviceZoneState(UDN.valueOf(leader.getId())).getZoneFriendlyName().getValue()),
+        () -> {
+          if (zone.getMembers().size() == 1) {
+            Member member = zone.getMembers().get(0);
+            zone.setFriendlyName(member.getFriendlyName());
+            if (member instanceof Group) {
+              zone.setLeader(((Group) member).getLeader());
+            } else {
+              zone.setLeader(member);
+            }
+          }
+        });
   }
 
   protected Device castToDevice(Member member) {

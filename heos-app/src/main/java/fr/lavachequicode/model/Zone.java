@@ -1,15 +1,15 @@
 package fr.lavachequicode.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class Zone {
-    String id;
-    String friendlyName;
-    Member leader;
-    List<? extends Member> members;
+  String id;
+  String friendlyName;
+  Member leader;
+  List<? extends Member> members;
 }
