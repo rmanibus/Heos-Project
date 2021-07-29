@@ -1,0 +1,46 @@
+plugins {
+  id 'java'
+  id 'io.quarkus'
+}
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+}
+
+dependencies {
+  implementation project(':heos-sdk')
+  compileOnly 'org.projectlombok:lombok:1.18.20'
+  annotationProcessor 'org.projectlombok:lombok:1.18.20'
+  implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+  implementation 'io.quarkus:quarkus-scheduler'
+  implementation 'io.quarkus:quarkus-resteasy'
+  implementation 'io.quarkus:quarkus-resteasy-jackson'
+  implementation 'io.quarkus:quarkus-arc'
+  implementation 'org.seamless:seamless-http:1.1.2'
+  implementation 'org.seamless:seamless-xml:1.1.2'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.12.4'
+  //implementation 'org.fourthline.cling:cling-core:2.1.2'
+  implementation files('C:\\Users\\loich\\.m2\\repository\\org\\fourthline\\cling\\cling-core\\2.1.2\\cling-core-2.1.2.jar')
+  testCompileOnly 'org.projectlombok:lombok:1.18.20'
+  testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+  testImplementation 'io.quarkus:quarkus-junit5'
+  testImplementation 'io.rest-assured:rest-assured'
+}
+
+group 'fr.lavachequicode'
+version '1.0.0-SNAPSHOT'
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+  options.encoding = 'UTF-8'
+  options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+  options.encoding = 'UTF-8'
+}
