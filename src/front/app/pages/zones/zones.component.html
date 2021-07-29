@@ -1,4 +1,15 @@
-<div class="zone-box" cdkDrag>
-    Drag me around
+
+<div cdkDropListGroup>
+    <div class="zone-container" *ngFor="let zone of zones$ | async">
+      <h2>{{zone.friendlyName}}</h2>
+      <div
+        cdkDropList
+        [cdkDropListData]="zone.members"
+        class="member-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="member-box" *ngFor="let item of zone.members" cdkDrag>{{item.friendlyName}}</div>
+      </div>
+    </div>
+
   </div>
   
