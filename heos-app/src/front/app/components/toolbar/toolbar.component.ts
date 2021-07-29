@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ZoneService } from '../../services/zone.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,7 +10,7 @@ export class ToolbarComponent implements OnInit {
 
   @Output() drawerClick = new EventEmitter();
   
-  constructor() { }
+  constructor(public zoneService: ZoneService) { }
 
   ngOnInit(): void {
   }

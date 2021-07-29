@@ -2,13 +2,14 @@
   <div class="zone-container" *ngFor="let zone of zones$ | async">
     <h2>{{ zone.friendlyName }}</h2>
     <div
+    (dblclick)="selectZone(zone)"
       cdkDropList
       [cdkDropListData]="zone.members"
       class="member-list"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="member-box" *ngFor="let item of zone.members" cdkDrag>
-        <mat-expansion-panel class="member-expansion-panel" hideToggle>
+        <mat-expansion-panel [ngClass]="{'selected': (selectedZone$ | async)?.id === zone.id}" class="member-expansion-panel" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon

@@ -29,6 +29,9 @@ public class HeosZoneService {
   public Collection<Zone> getZones() {
     return buildZoneMap().values();
   }
+  public Zone getZone(String id) {
+    return buildZoneMap().get(id);
+  }
 
   Map<String, Zone> buildZoneMap() {
 

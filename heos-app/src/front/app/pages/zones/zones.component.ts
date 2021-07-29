@@ -19,14 +19,19 @@ export class ZonesComponent implements OnInit {
   panelOpenState = false;
   zonesSubject = new BehaviorSubject<Zone[]>([]);
   zones$: Observable<Zone[]>;
-
+  selectedZone$: Observable<Zone | null>;
   constructor(private zoneService: ZoneService) {
     this.zones$ = this.zonesSubject.asObservable();
+    this.selectedZone$ = this.zoneService.selectedZone$;
     this.zoneService.zones$.subscribe(next => this.zonesSubject.next(next));
   }
 
   ngOnInit(): void {
 
+  }
+
+  selectZone(zone: Zone){
+    this.zoneService.setSelectedZone(zone);
   }
 
   drop(event: CdkDragDrop<(Device | Group)[]>) {

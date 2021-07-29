@@ -1,1 +1,35 @@
-<p>playback works!</p>
+<mat-card class="playback-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-slider style="width: 100%;" aria-label="unit(s)"></mat-slider>
+        <div fxLayout="row" fxLayoutAlign="center center" >
+          <button mat-icon-button>
+            <mat-icon>skip_previous</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>skip_next</mat-icon>
+          </button>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>volume_up</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" yPosition="above">
+            <button disableRipple mat-menu-item>
+                <mat-slider>
+        
+                </mat-slider>
+              </button>
+          </mat-menu>
+        </div>        
+    </mat-card-actions>
+  </mat-card>
+  

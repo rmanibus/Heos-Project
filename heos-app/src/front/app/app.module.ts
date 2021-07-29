@@ -21,6 +21,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
 import {DragDropModule} from '@angular/cdk/drag-drop'; 
 import {MatExpansionModule} from '@angular/material/expansion'; 
+import {MatSliderModule} from '@angular/material/slider'; 
+import {MatCardModule} from '@angular/material/card'; 
 
 import { GroupService } from './services/group.service';
 import { ZoneService } from './services/zone.service';
@@ -50,6 +52,8 @@ import { ZoneService } from './services/zone.service';
     MatListModule,
     DragDropModule,
     MatExpansionModule,
+    MatSliderModule,
+    MatCardModule,
   ],
   providers: [GroupService, ZoneService],
   bootstrap: [AppComponent]
