@@ -8,6 +8,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ZonesComponent } from './pages/zones/zones.component';
 import { PlaybackComponent } from './pages/playback/playback.component';
 import { DevicesComponent } from './pages/devices/devices.component'; 
+import { PlayerComponent } from './components/player/player.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,10 +24,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatExpansionModule} from '@angular/material/expansion'; 
 import {MatSliderModule} from '@angular/material/slider'; 
 import {MatCardModule} from '@angular/material/card'; 
+import {MatTableModule} from '@angular/material/table'; 
 
 import { GroupService } from './services/group.service';
 import { ZoneService } from './services/zone.service';
-import { PlayerComponent } from './components/player/player.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { PlayerComponent } from './components/player/player.component';
     MatExpansionModule,
     MatSliderModule,
     MatCardModule,
+    MatTableModule,
   ],
   providers: [GroupService, ZoneService],
   bootstrap: [AppComponent]

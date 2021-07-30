@@ -19,4 +19,5 @@ export class DevicesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  displayedColumns: string[] = ['friendlyName', 'actions'];
 }
