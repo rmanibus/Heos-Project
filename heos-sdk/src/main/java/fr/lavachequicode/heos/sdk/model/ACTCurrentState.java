@@ -22,17 +22,46 @@ public class ACTCurrentState {
     }
 
     @JsonProperty("ActiveInterface")
-    Content activeInterface;
+    void unpackActiveInterface(Map<String, String> data) {
+        activeInterface = data.get("val");
+    }
+
+    String activeInterface;
+
     @JsonProperty("FriendlyName")
-    Content friendlyName;
+    void unpackFriendlyName(Map<String, String> data) {
+        friendlyName = data.get("val");
+    }
+
+    String friendlyName;
+
     @JsonProperty("HEOSNetId")
-    Content heosNetId;
+    void unpackHeosNetId(Map<String, String> data) {
+        heosNetId = data.get("val");
+    }
+
+    String heosNetId;
+
     @JsonProperty("LastDiscoveredDevice")
-    Content lastDiscoveredDevice;
+    void unpackLastDiscoveredDevice(Map<String, String> data) {
+        lastDiscoveredDevice = data.get("val");
+    }
+
+    String lastDiscoveredDevice;
+
     @JsonProperty("P2PMode")
-    Content p2pMode;
+    void unpackP2PMode(Map<String, String> data) {
+        p2pMode = data.get("val");
+    }
+
+    String p2pMode;
+
     @JsonProperty("Transcode")
-    Content transcode;
+    void unpackTranscode(Map<String, String> data) {
+        transcode = data.get("val");
+    }
+
+    String transcode;
 
     @JsonProperty("AudioConfig")
     void unpackAudioConfig(Map<String, String> data) throws JsonProcessingException {
@@ -47,24 +76,47 @@ public class ACTCurrentState {
     }
 
     BluetoothStatus btConfig;
-    @JsonProperty("ConfigurationStatus")
-    Content configurationStatus;
-    @JsonProperty("UpgradeComponentInstallProgress")
-    Content upgradeComponentInstallProgress;
-    @JsonProperty("CurrentLanguageLocale")
-    Content currentLanguageLocale;
 
-    @JsonProperty("CurrentWirelessProfile")
-    void unpackWirelessState(Map<String, String> data) throws JsonProcessingException {
-        currentWirelessProfile = readNested(data.get("val"), WirelessProfile.class);
+    @JsonProperty("ConfigurationStatus")
+    void unpackConfigurationStatus(Map<String, String> data) {
+        configurationStatus = data.get("val");
     }
 
+    String configurationStatus;
+
+    @JsonProperty("UpgradeComponentInstallProgress")
+    void unpackUpgradeComponentInstallProgress(Map<String, String> data) {
+        upgradeComponentInstallProgress = data.get("val");
+    }
+
+    String upgradeComponentInstallProgress;
+
+    @JsonProperty("CurrentLanguageLocale")
+    void unpackCurrentLanguageLocale(Map<String, String> data) {
+        currentLanguageLocale = data.get("val");
+    }
+
+    String currentLanguageLocale;
+
+    @JsonProperty("CurrentWirelessProfile")
+    void unpackCurrentWirelessProfile(Map<String, String> data) throws JsonProcessingException {
+        currentWirelessProfile = readNested(data.get("val"), WirelessProfile.class);
+    }
     WirelessProfile currentWirelessProfile;
 
     @JsonProperty("DaylightSaving")
-    Content daylightSaving;
+    void unpackDaylightSaving(Map<String, String> data) {
+        daylightSaving = data.get("val");
+    }
+
+    String daylightSaving;
+
     @JsonProperty("IANAName")
-    Content ianaName;
+    void unpackIANAName(Map<String, String> data) {
+        ianaName = data.get("val");
+    }
+
+    String ianaName;
 
     @JsonProperty("LEDConfig")
     void unpackLedConfig(Map<String, String> data) throws JsonProcessingException {
@@ -74,6 +126,10 @@ public class ACTCurrentState {
     LEDConfig ledConfig;
 
     @JsonProperty("LowLatencyConfig")
+    void unpackLowLatencyConfig(Map<String, String> data) {
+        lowLatencyConfig = data.get("val");
+    }
+
     String lowLatencyConfig;
 
     @JsonProperty("NetworkConfigurationList")
@@ -84,7 +140,11 @@ public class ACTCurrentState {
     ListNetworkConfigurations networkConfigurationList;
 
     @JsonProperty("NetworkShareConfig")
-    Content networkShareConfig;
+    void unpackNetworkShareConfig(Map<String, String> data) throws JsonProcessingException {
+        networkShareConfig = data.get("val");
+    }
+
+    String networkShareConfig;
 
     @JsonProperty("QuickSelectActive")
     void unpackQuickSelectActive(Map<String, String> data) throws JsonProcessingException {
@@ -100,8 +160,12 @@ public class ACTCurrentState {
     }
 
     QuickSelectNames quickSelectNames;
+
     @JsonProperty("SessionId")
-    Content sessionId;
+    void unpackSessionId(Map<String, String> data) {
+        sessionId = data.get("val");
+    }
+    String sessionId;
 
     @JsonProperty("SurroundSpeakerConfig")
     void unpackSurroundSpeakerConfig(Map<String, String> data) throws JsonProcessingException {
@@ -109,8 +173,13 @@ public class ACTCurrentState {
     }
 
     SurroundSpeakerConfig surroundSpeakerConfig;
+
     @JsonProperty("TimeZone")
-    Content timeZone;
+    void TimeZone(Map<String, String> data) {
+        timeZone = data.get("val");
+    }
+
+    String timeZone;
 
     @JsonProperty("TvConfig")
     void unpackTvConfig(Map<String, String> data) throws JsonProcessingException {
@@ -119,23 +188,50 @@ public class ACTCurrentState {
 
     TvConfig tvConfig;
     @JsonProperty("UpdateAction")
-    Content updateAction;
+    void unpackUpdateAction(Map<String, String> data) {
+        updateAction = data.get("val");
+    }
+    String updateAction;
     @JsonProperty("UpdateLevel")
-    Content updateLevel;
+    void unpackUpdateLevel(Map<String, String> data) {
+        updateLevel = data.get("val");
+    }
+    String updateLevel;
     @JsonProperty("UpgradeProgress")
-    Content upgradeProgress;
+    void unpackUpgradeProgress(Map<String, String> data) {
+        upgradeProgress = data.get("val");
+    }
+    String upgradeProgress;
+
     @JsonProperty("UpgradeStatus")
-    Content upgradeStatus;
+    void unpackUpgradeStatus(Map<String, String> data) {
+        upgradeStatus = data.get("val");
+    }
+    String upgradeStatus;
+
     @JsonProperty("VolumeLimit")
-    Content volumeLimit;
+    void unpackVolumeLimit(Map<String, String> data) {
+        volumeLimit = data.get("val");
+    }
+    String volumeLimit;
+
     @JsonProperty("WifiApSsid")
-    Content wifiApSsid;
+    void unpackWifiApSsid(Map<String, String> data) {
+        wifiApSsid = data.get("val");
+    }
+    String wifiApSsid;
 
     @JsonProperty("WirelessState")
-    Content wirelessState;
+    void unpackWirelessState(Map<String, String> data) {
+        wirelessState = data.get("val");
+    }
+    String wirelessState;
 
     @JsonProperty("devicePlacement")
-    Content devicePlacement;
+    void unpackDevicePlacement(Map<String, String> data) {
+        devicePlacement = data.get("val");
+    }
+    String devicePlacement;
 
     @Data
     public static class Content {
