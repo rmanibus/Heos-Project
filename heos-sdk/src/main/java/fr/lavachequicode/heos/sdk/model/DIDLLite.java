@@ -15,7 +15,8 @@ import java.util.List;
 public class DIDLLite {
 
     @JacksonXmlElementWrapper(useWrapping = false)
-    List<Item> item;
+    @JacksonXmlProperty(localName = "item")
+    List<Item> items;
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -42,9 +42,9 @@ public interface ContentDirectory {
             @UpnpInputArgument(name = "ObjectID", aliases = "ContainerID") String objectId,
             @UpnpInputArgument(name = "BrowseFlag") String browseFlag,
             @UpnpInputArgument(name = "Filter") String filter,
-            @UpnpInputArgument(name = "StartingIndex", stateVariable = "A_ARG_TYPE_Index") String firstResult,
-            @UpnpInputArgument(name = "RequestedCount", stateVariable = "A_ARG_TYPE_Count") String maxResults,
-            @UpnpInputArgument(name = "SortCriteria") String orderBy);
+            @UpnpInputArgument(name = "StartingIndex", stateVariable = "A_ARG_TYPE_Index") String startingIndex,
+            @UpnpInputArgument(name = "RequestedCount", stateVariable = "A_ARG_TYPE_Count") String requestedCount,
+            @UpnpInputArgument(name = "SortCriteria") String SortCriteria);
 
     @UpnpAction(name = "Search", out = {
             @UpnpOutputArgument(name = "Result",
