@@ -16,6 +16,8 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 @Slf4j
 public class ActionInvocationHandler implements InvocationHandler {
 
@@ -46,17 +48,26 @@ public class ActionInvocationHandler implements InvocationHandler {
         if (method.getReturnType().equals(Void.class) || upnpActionAnnotation.out().length == 0) {
             return null;
         }
+        XML xml = method.getAnnotation(XML.class);
         if (upnpActionAnnotation.out().length == 1) {
-
             String response = callback.getInvocation().getOutputMap().get(upnpActionAnnotation.out()[0].name()).toString();
-            XML xml = method.getAnnotation(XML.class);
             if(xml == null){
                 return response;
             }
             XmlMapper xmlMapper = new XmlMapper();
             return xmlMapper.readValue(response, method.getReturnType());
         }
-        return callback.getInvocation().getOutputMap().toString();
+
+        if(xml == null){
+            return callback.getInvocation().getOutputMap().toString();
+        }
+        if(xml.field().equals("")){
+            throw new IllegalArgumentException("XML with multiple output must have a field set");
+        }
+        String response = callback.getInvocation().getOutputMap().get(xml.field()).toString();
+        XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return xmlMapper.readValue(response, method.getReturnType());
     }
 
     private static String coalesc(String... values) {

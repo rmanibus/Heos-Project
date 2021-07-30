@@ -1,5 +1,6 @@
 package fr.lavachequicode.heos.sdk.services;
 
+import fr.lavachequicode.heos.sdk.model.DIDLLite;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
 import org.fourthline.cling.model.types.UDAServiceId;
@@ -36,12 +37,13 @@ public interface ContentDirectory {
                     stateVariable = "A_ARG_TYPE_UpdateID",
                     getterName = "getContainerUpdateID")
     })
-    String browse(
+    @XML(field = "Result")
+    DIDLLite browse(
             @UpnpInputArgument(name = "ObjectID", aliases = "ContainerID") String objectId,
             @UpnpInputArgument(name = "BrowseFlag") String browseFlag,
             @UpnpInputArgument(name = "Filter") String filter,
-            @UpnpInputArgument(name = "StartingIndex", stateVariable = "A_ARG_TYPE_Index") UnsignedIntegerFourBytes firstResult,
-            @UpnpInputArgument(name = "RequestedCount", stateVariable = "A_ARG_TYPE_Count") UnsignedIntegerFourBytes maxResults,
+            @UpnpInputArgument(name = "StartingIndex", stateVariable = "A_ARG_TYPE_Index") String firstResult,
+            @UpnpInputArgument(name = "RequestedCount", stateVariable = "A_ARG_TYPE_Count") String maxResults,
             @UpnpInputArgument(name = "SortCriteria") String orderBy);
 
     @UpnpAction(name = "Search", out = {
