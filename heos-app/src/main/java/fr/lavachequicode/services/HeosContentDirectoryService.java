@@ -15,7 +15,7 @@ public class HeosContentDirectoryService {
   @Inject
   Registry registry;
   @Inject
-  HeosUpnpFactoy heosUpnpFactoy;
+  HeosUpnpFactory heosUpnpFactory;
 
 
   protected ContentDirectory getContentDirectory(UDN udn) {
@@ -23,7 +23,7 @@ public class HeosContentDirectoryService {
     if (device == null) {
       throw new NotFoundException();
     }
-    return heosUpnpFactoy.createProxy(device.findService(ContentDirectory.serviceId), ContentDirectory.class);
+    return heosUpnpFactory.createProxy(device.findService(ContentDirectory.serviceId), ContentDirectory.class);
   }
 
   public DIDLLite getInputs(String udn){

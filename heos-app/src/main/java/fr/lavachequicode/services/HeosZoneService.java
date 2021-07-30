@@ -88,12 +88,9 @@ public class HeosZoneService {
   protected void setZoneStatus(Member member) {
     if (member instanceof Group) {
       ((Group) member).getMembers().forEach(device -> device.setZoneStatus(heosStateService.getDeviceZoneState(UDN.valueOf(device.getId())).getZoneStatus().getValue()));
-      return;
     } else if (member instanceof Device) {
       ((Device) member).setZoneStatus(heosStateService.getDeviceZoneState(UDN.valueOf(member.getId())).getZoneStatus().getValue());
-      return;
     }
-    return;
   }
 
   protected void fetchZoneFriendlyName(Zone zone) {

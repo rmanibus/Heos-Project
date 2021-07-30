@@ -15,7 +15,7 @@ import javax.ws.rs.NotFoundException;
 import java.lang.reflect.Field;
 
 @ApplicationScoped
-public class HeosUpnpFactoy {
+public class HeosUpnpFactory {
 
     @Inject
     UpnpService upnpService;

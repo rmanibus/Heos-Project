@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class HeosStateService {
 
     @Inject
-    HeosUpnpFactoy heosUpnpFactory;
+    HeosUpnpFactory heosUpnpFactory;
     @Inject
     HeosSubscriptionService heosSubscriptionService;
 

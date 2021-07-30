@@ -2,7 +2,7 @@ package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.heos.sdk.model.ZoneCurrentState;
 import fr.lavachequicode.heos.sdk.services.ZoneControl;
-import fr.lavachequicode.services.HeosUpnpFactoy;
+import fr.lavachequicode.services.HeosUpnpFactory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class ZonesResource {
     @Inject
     Registry registry;
     @Inject
-    HeosUpnpFactoy heosUpnpFactoy;
+    HeosUpnpFactory heosUpnpFactory;
 
 
     protected ZoneControl getZoneControl(UDN udn) {
@@ -33,7 +33,7 @@ public class ZonesResource {
         if (device == null) {
             throw new NotFoundException();
         }
-        return heosUpnpFactoy.createProxy(device.findService(ZoneControl.serviceId), ZoneControl.class);
+        return heosUpnpFactory.createProxy(device.findService(ZoneControl.serviceId), ZoneControl.class);
     }
 
     @GET()

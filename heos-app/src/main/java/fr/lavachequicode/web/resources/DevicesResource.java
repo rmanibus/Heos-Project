@@ -20,8 +20,9 @@ public class DevicesResource {
 
   @Inject
   HeosDeviceService heosDeviceService;
-@Inject
+  @Inject
   HeosContentDirectoryService heosContentDirectoryService;
+
   @GET()
   @Path("")
   @Produces(MediaType.APPLICATION_JSON)
@@ -32,14 +33,14 @@ public class DevicesResource {
   @GET()
   @Path("/{id}")
   @Produces(MediaType.APPLICATION_JSON)
-  public Device get(@PathParam("id")String id) {
+  public Device get(@PathParam("id") String id) {
     return heosDeviceService.getDevice(id);
   }
 
   @GET()
   @Path("/{id}/inputs")
   @Produces(MediaType.APPLICATION_JSON)
-  public DIDLLite inputs(@PathParam("id")String id) {
+  public DIDLLite inputs(@PathParam("id") String id) {
     return heosContentDirectoryService.getInputs(id);
   }
 

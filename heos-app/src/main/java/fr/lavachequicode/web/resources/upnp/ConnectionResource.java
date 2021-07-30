@@ -3,7 +3,7 @@ package fr.lavachequicode.web.resources.upnp;
 import fr.lavachequicode.heos.sdk.devices.MediaRenderer;
 import fr.lavachequicode.heos.sdk.model.ConnectionCurrentState;
 import fr.lavachequicode.heos.sdk.services.ConnectionManager;
-import fr.lavachequicode.services.HeosUpnpFactoy;
+import fr.lavachequicode.services.HeosUpnpFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
 import org.fourthline.cling.model.types.UDN;
@@ -21,7 +21,7 @@ public class ConnectionResource {
   @Inject
   Registry registry;
   @Inject
-  HeosUpnpFactoy heosUpnpFactoy;
+  HeosUpnpFactory heosUpnpFactory;
 
   protected ConnectionManager getConnectionManager(UDN udn) {
     Device device = registry.getDevice(udn, false);
@@ -32,7 +32,7 @@ public class ConnectionResource {
     if (device == null) {
       throw new NotFoundException();
     }
-    return heosUpnpFactoy.createProxy(device.findService(ConnectionManager.serviceId), ConnectionManager.class);
+    return heosUpnpFactory.createProxy(device.findService(ConnectionManager.serviceId), ConnectionManager.class);
   }
 
   @GET()

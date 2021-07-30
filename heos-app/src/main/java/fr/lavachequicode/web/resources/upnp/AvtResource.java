@@ -2,7 +2,7 @@ package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.heos.sdk.model.AVTCurrentState;
 import fr.lavachequicode.heos.sdk.services.AVTransport;
-import fr.lavachequicode.services.HeosUpnpFactoy;
+import fr.lavachequicode.services.HeosUpnpFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.model.meta.Device;
 import org.fourthline.cling.model.types.UDN;
@@ -19,14 +19,14 @@ public class AvtResource {
     @Inject
     Registry registry;
     @Inject
-    HeosUpnpFactoy heosUpnpFactoy;
+    HeosUpnpFactory heosUpnpFactory;
 
     protected AVTransport getAvTransport(UDN udn) {
         final Device device = registry.getDevice(udn, false);
         if (device == null) {
             throw new NotFoundException();
         }
-        return heosUpnpFactoy.createProxy(device.findService(AVTransport.serviceId), AVTransport.class);
+        return heosUpnpFactory.createProxy(device.findService(AVTransport.serviceId), AVTransport.class);
     }
 
     @GET()

@@ -17,7 +17,7 @@ public class HeosPlaybackService {
   @Inject
   Registry registry;
   @Inject
-  HeosUpnpFactoy heosUpnpFactoy;
+  HeosUpnpFactory heosUpnpFactory;
   @Inject
   HeosZoneService heosZoneService;
 
@@ -26,7 +26,7 @@ public class HeosPlaybackService {
     if (device == null) {
       throw new NotFoundException();
     }
-    return heosUpnpFactoy.createProxy(device.findService(AVTransport.serviceId), AVTransport.class);
+    return heosUpnpFactory.createProxy(device.findService(AVTransport.serviceId), AVTransport.class);
   }
 
   public AVTCurrentState getStatus(String zoneId){
