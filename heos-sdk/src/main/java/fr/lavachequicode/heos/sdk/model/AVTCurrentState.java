@@ -30,37 +30,85 @@ public class AVTCurrentState {
                 isAttribute = true, localName = "val")
         String instanceId;
         @JsonProperty("AVTransportURI")
-        Content avTransportURI;
+        void unpackAVTransportURI(Map<String, String> data) {
+            avTransportURI = data.get("val");
+        }
+        String avTransportURI;
         @JsonProperty("CurrentMediaDuration")
-        Content currentMediaDuration;
+        void unpackCurrentMediaDuration(Map<String, String> data) {
+            currentMediaDuration = data.get("val");
+        }
+        String currentMediaDuration;
         @JsonProperty("CurrentPlayMode")
-        Content currentPlayMode;
+        void unpackCurrentPlayMode(Map<String, String> data) {
+            currentPlayMode = data.get("val");
+        }
+        String currentPlayMode;
         @JsonProperty("CurrentTrack")
-        Content currentTrack;
+        void unpackCurrentTrack(Map<String, String> data) {
+            currentTrack = data.get("val");
+        }
+        String currentTrack;
         @JsonProperty("CurrentTrackDuration")
-        Content currentTrackDuration;
+        void unpackCurrentTrackDuration(Map<String, String> data) {
+            currentTrackDuration = data.get("val");
+        }
+        String currentTrackDuration;
         @JsonProperty("CurrentTrackURI")
-        Content currentTrackURI;
+        void unpackCurrentTrackURI(Map<String, String> data) {
+            currentTrackURI = data.get("val");
+        }
+        String currentTrackURI;
         @JsonProperty("NextAVTransportURI")
-        Content nextAVTransportURI;
+        void unpackNextAVTransportURI(Map<String, String> data) {
+            nextAVTransportURI = data.get("val");
+        }
+        String nextAVTransportURI;
         @JsonProperty("NumberOfTracks")
-        Content numberOfTracks;
+        void unpackNumberOfTracks(Map<String, String> data) {
+            numberOfTracks = data.get("val");
+        }
+        String numberOfTracks;
         @JsonProperty("PlaybackStorageMedium")
-        Content playbackStorageMedium;
+        void unpackPlaybackStorageMedium(Map<String, String> data) {
+            playbackStorageMedium = data.get("val");
+        }
+        String playbackStorageMedium;
         @JsonProperty("PossiblePlaybackStorageMedia")
-        Content possiblePlaybackStorageMedia;
+        void unpackPossiblePlaybackStorageMedia(Map<String, String> data) {
+            possiblePlaybackStorageMedia = data.get("val");
+        }
+        String possiblePlaybackStorageMedia;
         @JsonProperty("PossibleRecordStorageMedia")
-        Content possibleRecordStorageMedia;
+        void unpackPossibleRecordStorageMedia(Map<String, String> data) {
+            possibleRecordStorageMedia = data.get("val");
+        }
+        String possibleRecordStorageMedia;
         @JsonProperty("TransportPlaySpeed")
-        Content transportPlaySpeed;
+        void unpackTransportPlaySpeed(Map<String, String> data) {
+            transportPlaySpeed = data.get("val");
+        }
+        String transportPlaySpeed;
         @JsonProperty("TransportState")
-        Content transportState;
+        void unpackTransportState(Map<String, String> data) {
+            transportState = data.get("val");
+        }
+        String transportState;
         @JsonProperty("TransportStatus")
-        Content transportStatus;
+        void unpackTransportStatus(Map<String, String> data) {
+            transportStatus = data.get("val");
+        }
+        String transportStatus;
         @JsonProperty("X_Shuffle")
-        Content x_Shuffle;
+        void unpackX_Shuffle(Map<String, String> data) {
+            x_Shuffle = data.get("val");
+        }
+        String x_Shuffle;
         @JsonProperty("CurrentTransportActions")
-        Content currentTransportActions;
+        void unpackCurrentTransportActions(Map<String, String> data) {
+            currentTransportActions = data.get("val");
+        }
+        String currentTransportActions;
 
         @JsonProperty("AVTransportURIMetaData")
         void unpackAvTransportURIMetaData(Map<String, String> data) throws JsonProcessingException {
@@ -82,13 +130,6 @@ public class AVTCurrentState {
         }
 
         MetaData nextAVTransportURIMetaData;
-    }
-
-    @Data
-    public static class Content {
-        @JacksonXmlProperty(
-                isAttribute = true, localName = "val")
-        String value;
     }
 
     static <T> T readNested(String value, Class<T> tClass) throws JsonProcessingException {

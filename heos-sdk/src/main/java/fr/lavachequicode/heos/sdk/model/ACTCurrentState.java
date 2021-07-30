@@ -32,7 +32,6 @@ public class ACTCurrentState {
     void unpackFriendlyName(Map<String, String> data) {
         friendlyName = data.get("val");
     }
-
     String friendlyName;
 
     @JsonProperty("HEOSNetId")

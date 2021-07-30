@@ -14,8 +14,15 @@ export class ZoneService {
   constructor(private http: HttpClient) {
     this.zones$ = this.http.get<Zone[]>('api/zones');
     this.selectedZone$ = this.selectedZoneSubject.asObservable();
+    if(localStorage.getItem('selectedZoneId')){
+      this.zones$.subscribe(zones => {
+        const selectedZone = zones.find(zone => zone.id === localStorage.getItem('selectedZoneId'));
+        selectedZone && this.selectedZoneSubject.next(selectedZone);
+      })
+    }
   }
   public setSelectedZone(zone: Zone) {
     this.selectedZoneSubject.next(zone);
+    localStorage.setItem('selectedZoneId', zone.id);
   }
 }

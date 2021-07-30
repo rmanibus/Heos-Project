@@ -18,7 +18,6 @@ export class PlayerComponent implements OnInit {
     this.status$ = this.zone && this.http.get('api/playback/status/' + this.zone.id);
   }
 
-  
   play() {
 
     this.zone && this.http.get('api/playback/play/' + this.zone.id).subscribe();
