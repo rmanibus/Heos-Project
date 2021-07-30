@@ -126,11 +126,11 @@ public class ACTCurrentState {
     LEDConfig ledConfig;
 
     @JsonProperty("LowLatencyConfig")
-    void unpackLowLatencyConfig(Map<String, String> data) {
-        lowLatencyConfig = data.get("val");
+    void unpackLowLatencyConfig(Map<String, String> data) throws JsonProcessingException {
+        lowLatencyConfig = readNested(data.get("val"), LowLatencyConfig.class);
     }
 
-    String lowLatencyConfig;
+    LowLatencyConfig lowLatencyConfig;
 
     @JsonProperty("NetworkConfigurationList")
     void unpackNetworkConfigurationList(Map<String, String> data) throws JsonProcessingException {
