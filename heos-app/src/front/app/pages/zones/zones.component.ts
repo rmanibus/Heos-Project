@@ -3,13 +3,12 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ZoneService } from '../../services/zone.service';
 import { Device } from '../../types/device.type';
 import { Group } from '../../types/group.type';
 import { Zone } from '../../types/zone.type';
-
 @Component({
   selector: 'app-zones',
   templateUrl: './zones.component.html',

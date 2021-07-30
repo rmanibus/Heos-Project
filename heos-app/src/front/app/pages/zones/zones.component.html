@@ -2,14 +2,18 @@
   <div class="zone-container" *ngFor="let zone of zones$ | async">
     <h2>{{ zone.friendlyName }}</h2>
     <div
-    (dblclick)="selectZone(zone)"
+      (dblclick)="selectZone(zone)"
       cdkDropList
       [cdkDropListData]="zone.members"
       class="member-list"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="member-box" *ngFor="let item of zone.members" cdkDrag>
-        <mat-expansion-panel [ngClass]="{'selected': (selectedZone$ | async)?.id === zone.id}" class="member-expansion-panel" hideToggle>
+        <mat-expansion-panel
+          [ngClass]="{ selected: (selectedZone$ | async)?.id === zone.id }"
+          class="member-expansion-panel"
+          hideToggle
+        >
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon
@@ -29,8 +33,15 @@
               {{ item.friendlyName }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>This is the primary content of the panel.</p>
-          
+          <mat-list *ngIf="item.type === 'group'" role="list">
+            <mat-list-item *ngFor="let member of (item | castToGroup).members; last as last" role="listitem">
+              <div mat-line>{{member.friendlyName}}</div>
+              <mat-chip-list aria-label="Report Type">
+                <mat-chip>{{ member.audioChannel}}</mat-chip>
+              </mat-chip-list >
+              <mat-divider *ngIf="!last"></mat-divider>           
+            </mat-list-item>
+          </mat-list>
         </mat-expansion-panel>
         <div class="member-handle" cdkDragHandle>
           <svg width="24px" fill="currentColor" viewBox="0 0 24 24">

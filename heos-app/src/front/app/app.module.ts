@@ -25,9 +25,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSliderModule} from '@angular/material/slider'; 
 import {MatCardModule} from '@angular/material/card'; 
 import {MatTableModule} from '@angular/material/table'; 
+import {MatChipsModule} from '@angular/material/chips'; 
 
 import { GroupService } from './services/group.service';
 import { ZoneService } from './services/zone.service';
+import { CastToGroupPipe } from './pipes/cast-to-group.pipe';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { ZoneService } from './services/zone.service';
     ZonesComponent,
     PlaybackComponent,
     DevicesComponent,
-    PlayerComponent
+    PlayerComponent,
+    CastToGroupPipe
   ],
   imports: [
     HttpClientModule,
@@ -58,6 +61,7 @@ import { ZoneService } from './services/zone.service';
     MatSliderModule,
     MatCardModule,
     MatTableModule,
+    MatChipsModule,
   ],
   providers: [GroupService, ZoneService],
   bootstrap: [AppComponent]
