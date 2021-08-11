@@ -15,7 +15,6 @@ public interface ConnectionManager {
 
     ServiceId serviceId = new UDAServiceId("ConnectionManager");
 
-    @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
     ConnectionCurrentState getCurrentState();
 

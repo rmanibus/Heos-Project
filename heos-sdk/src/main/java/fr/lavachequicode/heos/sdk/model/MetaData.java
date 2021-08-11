@@ -18,7 +18,7 @@ public class MetaData {
                 isAttribute = true, localName = "id")
         String id;
         @JacksonXmlProperty(
-                isAttribute = true, localName = "parentId")
+                isAttribute = true, localName = "parentID")
         Integer parentId;
         @JacksonXmlProperty(
                 isAttribute = true, localName = "restricted")

@@ -1,5 +1,6 @@
 package fr.lavachequicode.heos.sdk.services;
 
+import fr.lavachequicode.heos.sdk.model.Browse;
 import fr.lavachequicode.heos.sdk.model.DIDLLite;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
@@ -37,8 +38,7 @@ public interface ContentDirectory {
                     stateVariable = "A_ARG_TYPE_UpdateID",
                     getterName = "getContainerUpdateID")
     })
-    @XML(field = "Result")
-    DIDLLite browse(
+    Browse browse(
             @UpnpInputArgument(name = "ObjectID", aliases = "ContainerID") String objectId,
             @UpnpInputArgument(name = "BrowseFlag") String browseFlag,
             @UpnpInputArgument(name = "Filter") String filter,

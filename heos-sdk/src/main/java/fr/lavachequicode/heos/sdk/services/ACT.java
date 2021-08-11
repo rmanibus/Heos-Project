@@ -21,7 +21,6 @@ public interface ACT {
     @UpnpAction(name = "CancelFirmwareUpgrade")
     void cancelFirmwareUpgrade();
 
-    @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
     ACTCurrentState getCurrentState();
 

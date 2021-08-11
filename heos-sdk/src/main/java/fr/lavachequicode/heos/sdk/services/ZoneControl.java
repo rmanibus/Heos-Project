@@ -40,7 +40,6 @@ public interface ZoneControl {
     void setZoneVolume(@UpnpInputArgument(name = "ZoneUUID") String zoneUUID,
                              @UpnpInputArgument(name = "ZoneVolume") String zoneVolume);
 
-    @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
     ZoneCurrentState getCurrentState();
 

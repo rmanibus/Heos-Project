@@ -1,6 +1,9 @@
 package fr.lavachequicode.services;
 
 import fr.lavachequicode.heos.sdk.actions.ActionInvocationHandler;
+import fr.lavachequicode.heos.sdk.services.AVTransport;
+import fr.lavachequicode.heos.sdk.services.GroupControl;
+import fr.lavachequicode.heos.sdk.services.ZoneControl;
 import lombok.SneakyThrows;
 import org.fourthline.cling.UpnpService;
 import org.fourthline.cling.model.meta.Device;
@@ -34,4 +37,28 @@ public class HeosUpnpFactory {
     public <T> T createProxy(Service service, Class<T> tClass) {
         return ActionInvocationHandler.createProxy(upnpService, service, tClass);
     }
+
+  protected AVTransport getAvTransport(UDN udn) {
+    final Device device = registry.getDevice(udn, false);
+    if (device == null) {
+      throw new NotFoundException();
+    }
+    return createProxy(device.findService(AVTransport.serviceId), AVTransport.class);
+  }
+
+  protected ZoneControl getZoneControl(UDN udn) {
+    final Device device = registry.getDevice(udn, false);
+    if (device == null) {
+      throw new NotFoundException();
+    }
+    return createProxy(device.findService(ZoneControl.serviceId), ZoneControl.class);
+  }
+
+  protected GroupControl getGroupControl(UDN udn) {
+    final Device device = registry.getDevice(udn, false);
+    if (device == null) {
+      throw new NotFoundException();
+    }
+    return createProxy(device.findService(GroupControl.serviceId), GroupControl.class);
+  }
 }

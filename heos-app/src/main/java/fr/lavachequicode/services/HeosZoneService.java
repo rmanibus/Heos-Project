@@ -1,5 +1,6 @@
 package fr.lavachequicode.services;
 
+import fr.lavachequicode.heos.sdk.model.ZoneCurrentState;
 import fr.lavachequicode.model.Device;
 import fr.lavachequicode.model.Group;
 import fr.lavachequicode.model.Member;
@@ -95,14 +96,18 @@ public class HeosZoneService {
 
   protected void fetchZoneFriendlyName(Zone zone) {
     Optional.ofNullable(zone.getLeader())
-      .ifPresentOrElse(leader ->
-          zone.setFriendlyName(heosStateService.getDeviceZoneState(UDN.valueOf(leader.getId())).getZoneFriendlyName().getValue()),
+      .ifPresentOrElse(leader -> {
+          final ZoneCurrentState leaderZoneState = heosStateService.getDeviceZoneState(UDN.valueOf(leader.getId()));
+          zone.setFriendlyName(leaderZoneState.getZoneFriendlyName().getValue());
+          zone.setVolume(Integer.valueOf(leaderZoneState.getZoneVolume().getValue()));
+        },
         () -> {
           if (zone.getMembers().size() == 1) {
             Member member = zone.getMembers().get(0);
             zone.setFriendlyName(member.getFriendlyName());
             if (member instanceof Group) {
               zone.setLeader(((Group) member).getLeader());
+              zone.setVolume(((Group) member).getVolume());
             } else {
               zone.setLeader((Device) member);
             }

@@ -9,6 +9,7 @@ import java.util.List;
 @SuperBuilder
 public class Group extends Member {
     public static final String NO_GROUP_ID = "00000000000000000000000000000000";
+    Integer volume;
     Device leader;
     List<Device> members;
 }

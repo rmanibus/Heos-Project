@@ -66,7 +66,6 @@ public interface GroupControl {
                        @UpnpInputArgument(name = "GroupMemberUUIDList") String groupMemberUUIDList,
                        @UpnpInputArgument(name = "GroupMemberChannelList") String groupMemberChannelList);
 
-    @XML
     @UpnpAction(name = "GetCurrentState", out = @UpnpOutputArgument(name = "CurrentState"))
     GroupCurrentState getCurrentState();
 

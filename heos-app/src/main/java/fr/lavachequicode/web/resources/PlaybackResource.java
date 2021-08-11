@@ -50,7 +50,14 @@ public class PlaybackResource {
   @Path("/previous/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public void previous(@PathParam("id") String zoneId) {
-    heosPlaybackService.next(zoneId);
+    heosPlaybackService.previous(zoneId);
+  }
+
+  @GET()
+  @Path("/volume/{id}/{volume}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public void volume(@PathParam("id") String zoneId, @PathParam("volume") Integer volume) {
+    heosPlaybackService.volume(zoneId, volume);
   }
 
 }

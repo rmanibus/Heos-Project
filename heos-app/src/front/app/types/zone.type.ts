@@ -6,4 +6,5 @@ export interface Zone {
   id: string;
   leader: Device | null;
   members: Array<Device | Group>;
+  volume: number;
 }

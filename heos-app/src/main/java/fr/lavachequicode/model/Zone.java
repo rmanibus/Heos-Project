@@ -12,4 +12,5 @@ public class Zone {
   String friendlyName;
   Device leader;
   List<? extends Member> members;
+  Integer volume;
 }

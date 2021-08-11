@@ -43,6 +43,7 @@ export class ZonesComponent implements OnInit {
           event.previousContainer.data[event.previousIndex].friendlyName,
         id: '',
         leader: null,
+        volume: 0,
         members: [],
       };
       const zones: Zone[] = this.zonesSubject.getValue();

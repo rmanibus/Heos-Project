@@ -1,22 +1,23 @@
-<mat-card class="player-card">
+<mat-card *ngIf="status$ | async as status" class="player-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{(status$ | async)?.InstanceID.currentTrackMetaData.item.dcTitle}}</mat-card-title>
-      <mat-card-subtitle>{{(status$ | async)?.InstanceID.currentTrackMetaData.item.artist}}</mat-card-subtitle>
+      <mat-card-title>{{status?.InstanceID.currentTrackMetaData.item.dcTitle}}</mat-card-title>
+      <mat-card-subtitle>{{status?.InstanceID.currentTrackMetaData.item.artist}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="(status$ | async)?.InstanceID.currentTrackMetaData.item.albumArtURI" alt="AlbumArt">
+    <img mat-card-image [src]="status?.InstanceID.currentTrackMetaData.item.albumArtURI" alt="AlbumArt">
     <mat-card-content>
     </mat-card-content>
     <mat-card-actions>
         <mat-slider style="width: 100%;" aria-label="unit(s)"></mat-slider>
+        {{status.InstanceID.currentTrackDuration}}
         <div fxLayout="row" fxLayoutAlign="center center" >
           <button mat-icon-button (click)="previous()">
             <mat-icon>skip_previous</mat-icon>
           </button>
-          <button mat-icon-button (click)="play()">
+          <button *ngIf="status?.InstanceID.transportState === 'PAUSED_PLAYBACK' || status?.InstanceID.transportState === 'STOPPED'" mat-icon-button (click)="play()">
             <mat-icon>play_arrow</mat-icon>
           </button>
-          <button mat-icon-button (click)="pause()">
+          <button *ngIf="status?.InstanceID.transportState === 'TRANSITIONING' || status?.InstanceID.transportState === 'PLAYING'" mat-icon-button (click)="pause()">
             <mat-icon>pause_arrow</mat-icon>
           </button>
           <button mat-icon-button (click)="next()">
@@ -27,7 +28,7 @@
           </button>
           <mat-menu #menu="matMenu" yPosition="above">
             <button disableRipple mat-menu-item>
-                <mat-slider>
+                <mat-slider [value]="zone?.volume" (change)="volume($event)">
         
                 </mat-slider>
               </button>

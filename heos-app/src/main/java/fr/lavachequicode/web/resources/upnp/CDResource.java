@@ -1,5 +1,6 @@
 package fr.lavachequicode.web.resources.upnp;
 
+import fr.lavachequicode.heos.sdk.model.Browse;
 import fr.lavachequicode.heos.sdk.model.DIDLLite;
 import fr.lavachequicode.heos.sdk.services.ContentDirectory;
 import fr.lavachequicode.services.HeosUpnpFactory;
@@ -31,13 +32,13 @@ public class CDResource {
   @GET()
   @Path("/browse/{udn}")
   @Produces(MediaType.APPLICATION_JSON)
-  public DIDLLite getActCurrentState(@PathParam("udn") UDN udn,
-                                     @QueryParam("ObjectID") String objectID,
-                                     @QueryParam("BrowseFlag") String browseFlag,
-                                     @QueryParam("Filter") String filter,
-                                     @QueryParam("StartingIndex") String startingIndex,
-                                     @QueryParam("RequestedCount") String requestedCount,
-                                     @QueryParam("SortCriteria") String sortCriteria) {
+  public Browse getActCurrentState(@PathParam("udn") UDN udn,
+                                   @QueryParam("ObjectID") String objectID,
+                                   @QueryParam("BrowseFlag") String browseFlag,
+                                   @QueryParam("Filter") String filter,
+                                   @QueryParam("StartingIndex") String startingIndex,
+                                   @QueryParam("RequestedCount") String requestedCount,
+                                   @QueryParam("SortCriteria") String sortCriteria) {
 
     return getContentDirectory(udn).browse(objectID, browseFlag, filter, startingIndex, requestedCount, sortCriteria);
   }

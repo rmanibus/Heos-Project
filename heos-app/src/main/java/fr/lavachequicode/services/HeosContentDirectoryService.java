@@ -27,6 +27,6 @@ public class HeosContentDirectoryService {
   }
 
   public DIDLLite getInputs(String udn){
-    return getContentDirectory(UDN.valueOf(udn)).browse("inputs/", "BrowseDirectChildren", "dc:title,dc:date,upnp:artist,dc:creator,upnp:class,upnp:album,upnp:genre,upnp:albumArtURI,res,res@duration,res@reliability,upnp:originalTrackNumber,avega_media_server:media_library_database,container@searchable", "0", "50", "");
+    return getContentDirectory(UDN.valueOf(udn)).browse("inputs/", "BrowseDirectChildren", "dc:title,dc:date,upnp:artist,dc:creator,upnp:class,upnp:album,upnp:genre,upnp:albumArtURI,res,res@duration,res@reliability,upnp:originalTrackNumber,avega_media_server:media_library_database,container@searchable", "0", "50", "").getResult();
   }
 }

@@ -1,7 +1,6 @@
 package fr.lavachequicode.heos.sdk.actions;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import fr.lavachequicode.heos.sdk.services.XML;
 import lombok.extern.slf4j.Slf4j;
 import org.fourthline.cling.UpnpService;
 import org.fourthline.cling.binding.annotations.UpnpAction;
@@ -48,27 +47,41 @@ public class ActionInvocationHandler implements InvocationHandler {
         if (method.getReturnType().equals(Void.class) || upnpActionAnnotation.out().length == 0) {
             return null;
         }
-        XML xml = method.getAnnotation(XML.class);
         if (upnpActionAnnotation.out().length == 1) {
             String response = callback.getInvocation().getOutputMap().get(upnpActionAnnotation.out()[0].name()).toString();
-            if(xml == null){
+            if (String.class.equals(method.getReturnType())) {
                 return response;
             }
             XmlMapper xmlMapper = new XmlMapper();
+            xmlMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
             return xmlMapper.readValue(response, method.getReturnType());
         }
-
-        if(xml == null){
+        if (String.class.equals(method.getReturnType())) {
             return callback.getInvocation().getOutputMap().toString();
         }
-        if(xml.field().equals("")){
-            throw new IllegalArgumentException("XML with multiple output must have a field set");
+        final Object response = method.getReturnType().getConstructor().newInstance();
+        for (Method setter : method.getReturnType().getMethods()) {
+            if (setter.getName().startsWith("set")) {
+                Object value = callback.getInvocation().getOutputMap().get(setter.getName().substring(3));
+                if(value != null){
+                    try {
+                        Class<?> setterType = setter.getParameters()[0].getType();
+                        if(String.class.equals(setterType)){
+                            setter.invoke(response, value.toString());
+                        }else {
+                            XmlMapper xmlMapper = new XmlMapper();
+                            xmlMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+                            setter.invoke(response, xmlMapper.readValue(value.toString(), setterType));
+                        }
+                    } catch (Exception e) {
+                        log.error("Failed to extract value for field {}", method.getName(), e);
+                    }
+                }
+            }
         }
-        String response = callback.getInvocation().getOutputMap().get(xml.field()).toString();
-        XmlMapper xmlMapper = new XmlMapper();
-        xmlMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return xmlMapper.readValue(response, method.getReturnType());
+        return response;
     }
+
 
     private static String coalesc(String... values) {
         return Arrays.stream(values).filter(value -> value != null && value.length() > 0).findFirst().orElse("");
