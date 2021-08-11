@@ -15,8 +15,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     implementation 'org.slf4j:slf4j-api:1.7.30'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.12.4'
-    //implementation 'org.fourthline.cling:cling-core:2.1.2'
-    implementation files('C:\\Users\\loich\\.m2\\repository\\org\\fourthline\\cling\\cling-core\\2.1.2\\cling-core-2.1.2.jar')
+    implementation 'org.fourthline.cling:cling-core:2.1.2'
+    //implementation files('C:\\Users\\loich\\.m2\\repository\\org\\fourthline\\cling\\cling-core\\2.1.2\\cling-core-2.1.2.jar')
     implementation 'org.seamless:seamless-http:1.1.2'
     implementation 'org.seamless:seamless-xml:1.1.2'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
