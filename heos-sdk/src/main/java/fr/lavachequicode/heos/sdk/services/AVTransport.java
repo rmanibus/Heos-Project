@@ -2,6 +2,7 @@ package fr.lavachequicode.heos.sdk.services;
 
 import fr.lavachequicode.heos.sdk.model.AVTCurrentState;
 import fr.lavachequicode.heos.sdk.model.PositionInfo;
+import fr.lavachequicode.heos.sdk.model.TransportInfo;
 import org.fourthline.cling.binding.annotations.*;
 import org.fourthline.cling.model.types.ServiceId;
 import org.fourthline.cling.model.types.UDAServiceId;
@@ -69,14 +70,13 @@ public interface AVTransport {
             @UpnpOutputArgument(name = "CurrentTransportStatus"),
             @UpnpOutputArgument(name = "CurrentSpeed"),
     })
-    String getTransportInfo(@UpnpInputArgument(name = "InstanceID") String instanceId);
+    TransportInfo getTransportInfo(@UpnpInputArgument(name = "InstanceID") String instanceId);
 
     @UpnpAction(name = "GetTransportSettings", out = {
             @UpnpOutputArgument(name = "PlayMode"),
             @UpnpOutputArgument(name = "RecQualityMode"),
     })
     String getTransportSettings(@UpnpInputArgument(name = "InstanceID") String instanceId);
-
 
     @UpnpAction(name = "GetPositionInfo", out = {
             @UpnpOutputArgument(name = "Track"),

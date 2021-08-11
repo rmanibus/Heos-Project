@@ -2,6 +2,7 @@ package fr.lavachequicode.web.resources.upnp;
 
 import fr.lavachequicode.heos.sdk.model.AVTCurrentState;
 import fr.lavachequicode.heos.sdk.model.PositionInfo;
+import fr.lavachequicode.heos.sdk.model.TransportInfo;
 import fr.lavachequicode.heos.sdk.services.AVTransport;
 import fr.lavachequicode.services.HeosUpnpFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +47,8 @@ public class AvtResource {
 
   @GET()
   @Path("/getTransportInfo/{udn}")
-  @Produces(MediaType.TEXT_PLAIN)
-  public String getTransportInfo(@PathParam("udn") UDN udn) {
+  @Produces(MediaType.APPLICATION_JSON)
+  public TransportInfo getTransportInfo(@PathParam("udn") UDN udn) {
     return getAvTransport(udn).getTransportInfo("0");
   }
 

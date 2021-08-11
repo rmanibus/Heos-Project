@@ -1,10 +1,10 @@
 <mat-card *ngIf="status$ | async as status" class="player-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{status?.InstanceID.currentTrackMetaData.item.dcTitle}}</mat-card-title>
-      <mat-card-subtitle>{{status?.InstanceID.currentTrackMetaData.item.artist}}</mat-card-subtitle>
+      <mat-card-title>{{status?.trackMetaData.item.dcTitle}}</mat-card-title>
+      <mat-card-subtitle>{{status?.trackMetaData.item.artist}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="status?.InstanceID.currentTrackMetaData.item.albumArtURI" alt="AlbumArt">
+    <img mat-card-image [src]="status?.trackMetaData.item.albumArtURI" alt="AlbumArt">
     <mat-card-content>
     </mat-card-content>
     <mat-card-actions>

@@ -1,6 +1,6 @@
 package fr.lavachequicode.services;
 
-import fr.lavachequicode.heos.sdk.model.AVTCurrentState;
+import fr.lavachequicode.heos.sdk.model.PositionInfo;
 import fr.lavachequicode.model.Device;
 import fr.lavachequicode.model.Group;
 import fr.lavachequicode.model.Zone;
@@ -18,8 +18,8 @@ public class HeosPlaybackService {
   HeosZoneService heosZoneService;
 
 
-  public AVTCurrentState getStatus(String zoneId) {
-    return heosUpnpFactory.getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId))).getCurrentState();
+  public PositionInfo getStatus(String zoneId) {
+    return heosUpnpFactory.getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId))).getPositionInfo("0");
   }
 
   public void play(String zoneId) {

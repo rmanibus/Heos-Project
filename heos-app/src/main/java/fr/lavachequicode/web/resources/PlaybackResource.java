@@ -1,6 +1,6 @@
 package fr.lavachequicode.web.resources;
 
-import fr.lavachequicode.heos.sdk.model.AVTCurrentState;
+import fr.lavachequicode.heos.sdk.model.PositionInfo;
 import fr.lavachequicode.services.HeosPlaybackService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ public class PlaybackResource {
   @GET()
   @Path("/status/{id}")
   @Produces(MediaType.APPLICATION_JSON)
-  public AVTCurrentState status(@PathParam("id") String zoneId) {
+  public PositionInfo status(@PathParam("id") String zoneId) {
     return heosPlaybackService.getStatus(zoneId);
   }
 

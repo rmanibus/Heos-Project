@@ -68,7 +68,9 @@ public class ActionInvocationHandler implements InvocationHandler {
                         Class<?> setterType = setter.getParameters()[0].getType();
                         if(String.class.equals(setterType)){
                             setter.invoke(response, value.toString());
-                        }else {
+                        }else if(Integer.class.equals(setterType)) {
+                            setter.invoke(response, Integer.valueOf(value.toString()));
+                        } {
                             XmlMapper xmlMapper = new XmlMapper();
                             xmlMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
                             setter.invoke(response, xmlMapper.readValue(value.toString(), setterType));
