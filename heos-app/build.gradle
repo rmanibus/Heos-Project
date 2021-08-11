@@ -46,7 +46,7 @@ compileTestJava {
   options.encoding = 'UTF-8'
 }
 
-task buildAngular(type: YarnTask) {
+task angularBuild(type: YarnTask) {
   dependsOn yarn_install
   args = ['build']
   inputs.files('package.json', 'package-lock.json', 'angular.json', 'tsconfig.json', 'tsconfig.app.json')
@@ -55,6 +55,14 @@ task buildAngular(type: YarnTask) {
   outputs.dir('build/resources/main/META-INF/resources')
 }
 
+task angularDev(type: YarnTask) {
+  dependsOn yarn_install
+  args = ['start']
+  inputs.files('package.json', 'package-lock.json', 'angular.json', 'tsconfig.json', 'tsconfig.app.json')
+  inputs.dir('src')
+  inputs.dir(fileTree("node_modules").exclude(".cache"))
+}
+
 jar {
-  dependsOn buildAngular
+  dependsOn angularBuild
 }
