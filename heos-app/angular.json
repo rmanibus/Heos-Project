@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/heos-app",
+            "outputPath": "build/resources/main/META-INF/resources",
             "index": "src/front/index.html",
             "main": "src/front/main.ts",
             "polyfills": "src/front/polyfills.ts",
