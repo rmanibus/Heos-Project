@@ -1,6 +1,7 @@
 plugins {
   id 'java'
   id 'io.quarkus'
+  id 'com.github.node-gradle.node' version '3.0.1'
 }
 
 repositories {
@@ -43,4 +44,17 @@ compileJava {
 
 compileTestJava {
   options.encoding = 'UTF-8'
+}
+
+task buildAngular(type: YarnTask) {
+  dependsOn yarn_install
+  args = ['build']
+  inputs.files('package.json', 'package-lock.json', 'angular.json', 'tsconfig.json', 'tsconfig.app.json')
+  inputs.dir('src')
+  inputs.dir(fileTree("node_modules").exclude(".cache"))
+  outputs.dir('build/resources/main/META-INF/resources')
+}
+
+jar {
+  dependsOn buildAngular
 }
