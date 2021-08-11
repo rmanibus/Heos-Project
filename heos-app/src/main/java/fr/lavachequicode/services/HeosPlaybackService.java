@@ -1,9 +1,11 @@
 package fr.lavachequicode.services;
 
 import fr.lavachequicode.heos.sdk.model.PositionInfo;
+import fr.lavachequicode.heos.sdk.services.AVTransport;
 import fr.lavachequicode.model.Device;
 import fr.lavachequicode.model.Group;
 import fr.lavachequicode.model.Zone;
+import fr.lavachequicode.web.dto.PlaybackStatusDto;
 import org.fourthline.cling.model.types.UDN;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,8 +20,9 @@ public class HeosPlaybackService {
   HeosZoneService heosZoneService;
 
 
-  public PositionInfo getStatus(String zoneId) {
-    return heosUpnpFactory.getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId))).getPositionInfo("0");
+  public PlaybackStatusDto getStatus(String zoneId) {
+    AVTransport avTransport = heosUpnpFactory.getAvTransport(getZoneLeaderUdn(heosZoneService.getZone(zoneId)));
+    return new PlaybackStatusDto(avTransport.getPositionInfo("0"), avTransport.getTransportInfo("0"));
   }
 
   public void play(String zoneId) {

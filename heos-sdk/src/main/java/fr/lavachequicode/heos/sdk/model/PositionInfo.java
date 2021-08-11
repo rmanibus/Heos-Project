@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PositionInfo {
-    String track;
+    Integer track;
     String trackDuration;
     MetaData trackMetaData;
     String trackURI;

@@ -2,6 +2,7 @@ package fr.lavachequicode.web.resources;
 
 import fr.lavachequicode.heos.sdk.model.PositionInfo;
 import fr.lavachequicode.services.HeosPlaybackService;
+import fr.lavachequicode.web.dto.PlaybackStatusDto;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ public class PlaybackResource {
   @GET()
   @Path("/status/{id}")
   @Produces(MediaType.APPLICATION_JSON)
-  public PositionInfo status(@PathParam("id") String zoneId) {
+  public PlaybackStatusDto status(@PathParam("id") String zoneId) {
     return heosPlaybackService.getStatus(zoneId);
   }
 

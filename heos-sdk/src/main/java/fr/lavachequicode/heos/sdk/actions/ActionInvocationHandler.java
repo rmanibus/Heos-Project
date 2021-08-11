@@ -70,7 +70,7 @@ public class ActionInvocationHandler implements InvocationHandler {
                             setter.invoke(response, value.toString());
                         }else if(Integer.class.equals(setterType)) {
                             setter.invoke(response, Integer.valueOf(value.toString()));
-                        } {
+                        } else {
                             XmlMapper xmlMapper = new XmlMapper();
                             xmlMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
                             setter.invoke(response, xmlMapper.readValue(value.toString(), setterType));
